@@ -1,0 +1,4 @@
+repository "Speziman@philinhphan@cloud"
+  path "/"
+    br "/main"
+    co "/main"
