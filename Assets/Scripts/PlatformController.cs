@@ -11,13 +11,14 @@ public class PlatformController : MonoBehaviour {
 
     private Vector3 startPosition;
     private Vector3 endPosition;
-    
-    public Vector3 nextPosition;
+    private Vector3 nextPosition;
 
     public float speed = 2f;
 
     private float width;
     private float height;
+
+    public bool isReversed = false;
 
 
     // Start is called before the first frame update
@@ -26,10 +27,26 @@ public class PlatformController : MonoBehaviour {
         width = transform.localScale.x;
         height = transform.localScale.y;
 
-        startPosition = new Vector3(startPoint.position.x + width/2, startPoint.position.y);
-        endPosition = new Vector3(endPoint.position.x - width/2, endPoint.position.y);
 
-        nextPosition = endPosition;
+        
+    	
+        if (endPoint.position.x - startPoint.position.x < width) {
+            // Makes vertical platforms connect with center to limitPoints
+            startPosition = new Vector3(startPoint.position.x, startPoint.position.y);
+            endPosition = new Vector3(endPoint.position.x, endPoint.position.y);
+        } 
+        else {
+            // Makes horizontal or diagonal platforms connect with edge to limitPoints
+            startPosition = new Vector3(startPoint.position.x + width/2, startPoint.position.y);
+            endPosition = new Vector3(endPoint.position.x - width/2, endPoint.position.y);
+        }
+        
+
+        if (!isReversed) {
+            nextPosition = endPosition;
+        } else {
+            nextPosition = startPosition;
+        }
     }
 
     // Update is called once per frame
