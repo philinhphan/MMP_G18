@@ -26,8 +26,6 @@ public class PlatformController : MonoBehaviour {
 
         width = transform.localScale.x;
         height = transform.localScale.y;
-
-
         
     	
         if (endPoint.position.x - startPoint.position.x < width) {
@@ -41,7 +39,6 @@ public class PlatformController : MonoBehaviour {
             endPosition = new Vector3(endPoint.position.x - width/2, endPoint.position.y);
         }
         
-
         if (!isReversed) {
             nextPosition = endPosition;
         } else {
