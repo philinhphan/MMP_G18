@@ -1,0 +1,3 @@
+- Anforderung Animation: Reicht ein bewegtes Objekt, oder muss explizit das Animationsfeature aus Unity verwendet werden? (abgesehen von Sprite-Animation für Player-Character)
+
+- Welchen Collider für formreicher Objekte (z.B. "drehender Kreis" im Level: Aktuell mit PolygonCollider, gibt es eine bessere Lösung?)
