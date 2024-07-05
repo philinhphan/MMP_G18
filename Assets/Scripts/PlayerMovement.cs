@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour { 
 
+    public Animator animator;
+
     public CharacterController2D characterController;
     public float speed = 40f;
 
@@ -21,12 +23,22 @@ public class PlayerMovement : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
+
+        
+
         horizontalMove = Input.GetAxisRaw("Horizontal") * speed;
+
+        animator.SetFloat("speed", Mathf.Abs(horizontalMove));
 
         if (Input.GetButtonDown("Jump"))
         {
             jump = true;
+            animator.SetBool("isJumping", true);
         }
+    }
+
+    public void onLanding() {
+        animator.SetBool("isJumping", false);
     }
 
     private void FixedUpdate()
