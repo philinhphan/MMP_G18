@@ -14,10 +14,13 @@ public class PlayerMovement : MonoBehaviour {
 
     public Vector3 startingPosition;
 
+    private CheckpointSystem checkpointSystem;
+
     // Start is called before the first frame update
     void Start()
     {
         startingPosition = new Vector3(-18, -7, 0);
+        checkpointSystem = GetComponent<CheckpointSystem>();
     }
 
     // Update is called once per frame
@@ -57,6 +60,7 @@ public class PlayerMovement : MonoBehaviour {
 
     private void resetPosition()
     {
-        transform.position = startingPosition;
+        // transform.position = startingPosition;
+        transform.position = checkpointSystem.getCurrentCheckpoint();
     }
 }
