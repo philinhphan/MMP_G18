@@ -12,14 +12,11 @@ public class PlayerMovement : MonoBehaviour {
     float horizontalMove = 0f;
     bool jump = false;
 
-    public Vector3 startingPosition;
-
     private CheckpointSystem checkpointSystem;
 
     // Start is called before the first frame update
     void Start()
     {
-        startingPosition = new Vector3(-18, -7, 0);
         checkpointSystem = GetComponent<CheckpointSystem>();
     }
 
