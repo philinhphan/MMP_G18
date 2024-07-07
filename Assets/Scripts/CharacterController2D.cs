@@ -1,24 +1,22 @@
-
 using UnityEngine;
 using UnityEngine.Events;
 
 public class CharacterController2D : MonoBehaviour
 {
+    [SerializeField] private float m_JumpForce = 400f;
+    [Range(0, 1)] [SerializeField] private float m_CrouchSpeed = .36f;
+    [Range(0, .3f)] [SerializeField] private float m_MovementSmoothing = .05f;
+    [SerializeField] private bool m_AirControl = false;
+    [SerializeField] private LayerMask m_WhatIsGround;
+    [SerializeField] private Transform m_GroundCheck;
+    [SerializeField] private Transform m_CeilingCheck;
+    [SerializeField] private Collider2D m_CrouchDisableCollider;
 
-    [SerializeField] private float m_JumpForce = 400f;                          // Amount of force added when the player jumps.
-    [Range(0, 1)][SerializeField] private float m_CrouchSpeed = .36f;           // Amount of maxSpeed applied to crouching movement. 1 = 100%
-    [Range(0, .3f)][SerializeField] private float m_MovementSmoothing = .05f;   // How much to smooth out the movement
-    [SerializeField] private bool m_AirControl = false;                         // Whether or not a player can steer while jumping;
-    [SerializeField] private LayerMask m_WhatIsGround;                          // A mask determining what is ground to the character
-    [SerializeField] private Transform m_GroundCheck;                           // A position marking where to check if the player is grounded.
-    [SerializeField] private Transform m_CeilingCheck;                          // A position marking where to check for ceilings
-    [SerializeField] private Collider2D m_CrouchDisableCollider;                // A collider that will be disabled when crouching
-
-    const float k_GroundedRadius = .2f; // Radius of the overlap circle to determine if grounded
-    private bool m_Grounded;            // Whether or not the player is grounded.
-    const float k_CeilingRadius = .2f; // Radius of the overlap circle to determine if the player can stand up
+    const float k_GroundedRadius = .2f;
+    private bool m_Grounded;
+    const float k_CeilingRadius = .2f;
     private Rigidbody2D m_Rigidbody2D;
-    private bool m_FacingRight = true;  // For determining which way the player is currently facing.
+    private bool m_FacingRight = true;
     private Vector3 m_Velocity = Vector3.zero;
 
     [Header("Events")]
@@ -31,6 +29,11 @@ public class CharacterController2D : MonoBehaviour
 
     public BoolEvent OnCrouchEvent;
     private bool m_wasCrouching = false;
+
+    // New variables for FlappyBird mode
+    private bool m_IsFlappyBirdMode = false; // Added to track the current mode
+    [SerializeField] private float m_FlappyBirdGravity = -9.81f; // Gravity for FlappyBird mode
+    [SerializeField] private float m_FlappyBirdJumpForce = 5f; // Jump force for FlappyBird mode
 
     private void Awake()
     {
@@ -62,9 +65,15 @@ public class CharacterController2D : MonoBehaviour
         }
     }
 
-
     public void Move(float move, bool crouch, bool jump)
     {
+        
+        if (m_IsFlappyBirdMode)
+        {
+            MoveFlappyBird(jump);
+            return;
+        }
+
         // If crouching, check to see if the character can stand up
         if (!crouch)
         {
@@ -78,7 +87,6 @@ public class CharacterController2D : MonoBehaviour
         //only control the player if grounded or airControl is turned on
         if (m_Grounded || m_AirControl)
         {
-
             // If crouching
             if (crouch)
             {
@@ -135,6 +143,18 @@ public class CharacterController2D : MonoBehaviour
         }
     }
 
+    
+    private void MoveFlappyBird(bool jump)
+    {
+        // Apply gravity
+        m_Rigidbody2D.velocity += Vector2.up * m_FlappyBirdGravity * Time.fixedDeltaTime;
+
+        // Apply jump force if jump button is pressed
+        if (jump)
+        {
+            m_Rigidbody2D.velocity = new Vector2(m_Rigidbody2D.velocity.x, m_FlappyBirdJumpForce);
+        }
+    }
 
     private void Flip()
     {
@@ -145,5 +165,12 @@ public class CharacterController2D : MonoBehaviour
         Vector3 theScale = transform.localScale;
         theScale.x *= -1;
         transform.localScale = theScale;
+    }
+
+    
+    public void ToggleFlappyBirdMode(bool isFlappyBirdMode)
+    {
+        m_IsFlappyBirdMode = isFlappyBirdMode;
+        m_Rigidbody2D.gravityScale = isFlappyBirdMode ? 0f : 1f; // Disable Unity's gravity in FlappyBird mode
     }
 }

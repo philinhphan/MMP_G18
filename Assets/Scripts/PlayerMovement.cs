@@ -12,10 +12,12 @@ public class PlayerMovement : MonoBehaviour
 
     private Dictionary<PlayerState, PlayerStateBase> states;
     private PlayerStateBase currentState;
+    private CheckpointSystem checkpointSystem;
 
     private void Awake()
     {
         inputHandler = new InputHandler();
+        checkpointSystem = GetComponent<CheckpointSystem>();
         InitializeStates();
     }
 
@@ -41,6 +43,21 @@ public class PlayerMovement : MonoBehaviour
         currentState.FixedUpdate();
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Obstacle"))
+        {
+            ResetPosition();
+        }
+    }
+
+    private void ResetPosition()
+    {
+        transform.position = checkpointSystem.getCurrentCheckpoint();
+        // Ensure we're in Normal state when resetting position TODO
+        SwitchState(PlayerState.Normal);
+    }
+
     public void SwitchState(PlayerState newState)
     {
         if (states.TryGetValue(newState, out PlayerStateBase state))
@@ -48,6 +65,9 @@ public class PlayerMovement : MonoBehaviour
             currentState.Exit();
             currentState = state;
             currentState.Enter();
+
+            // Toggle FlappyBird mode in CharacterController2D
+            characterController.ToggleFlappyBirdMode(newState == PlayerState.FlappyBird);
         }
         else
         {
