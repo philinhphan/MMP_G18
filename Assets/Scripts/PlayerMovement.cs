@@ -1,63 +1,62 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using System.Collections.Generic;
 
-public class PlayerMovement : MonoBehaviour { 
-
+public class PlayerMovement : MonoBehaviour
+{
     public Animator animator;
-
     public CharacterController2D characterController;
     public float speed = 40f;
 
-    float horizontalMove = 0f;
-    bool jump = false;
+    [HideInInspector]
+    public InputHandler inputHandler;
 
-    private CheckpointSystem checkpointSystem;
+    private Dictionary<PlayerState, PlayerStateBase> states;
+    private PlayerStateBase currentState;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
-        checkpointSystem = GetComponent<CheckpointSystem>();
+        inputHandler = new InputHandler();
+        InitializeStates();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void InitializeStates()
     {
-
-        
-
-        horizontalMove = Input.GetAxisRaw("Horizontal") * speed;
-
-        animator.SetFloat("speed", Mathf.Abs(horizontalMove));
-
-        if (Input.GetButtonDown("Jump"))
+        states = new Dictionary<PlayerState, PlayerStateBase>
         {
-            jump = true;
-            animator.SetBool("isJumping", true);
-        }
+            { PlayerState.Normal, new NormalState(this, characterController) },
+            { PlayerState.FlappyBird, new FlappyBirdState(this, characterController) }
+        };
+
+        currentState = states[PlayerState.Normal];
+        currentState.Enter();
     }
 
-    public void onLanding() {
-        animator.SetBool("isJumping", false);
+    private void Update()
+    {
+        currentState.Update();
     }
 
     private void FixedUpdate()
     {
-        characterController.Move(horizontalMove * Time.fixedDeltaTime, false, jump);
-        jump = false;
+        currentState.FixedUpdate();
     }
 
-    void OnCollisionEnter2D(Collision2D collision)
+    public void SwitchState(PlayerState newState)
     {
-        if (collision.collider.tag == "Obstacle")
+        if (states.TryGetValue(newState, out PlayerStateBase state))
         {
-            resetPosition();
+            currentState.Exit();
+            currentState = state;
+            currentState.Enter();
+        }
+        else
+        {
+            Debug.LogError($"State {newState} not found!");
         }
     }
 
-    private void resetPosition()
+    public void OnLanding()
     {
-        // transform.position = startingPosition;
-        transform.position = checkpointSystem.getCurrentCheckpoint();
+        currentState.OnLanding();
     }
 }
