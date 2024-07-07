@@ -173,4 +173,9 @@ public class CharacterController2D : MonoBehaviour
         m_IsFlappyBirdMode = isFlappyBirdMode;
         m_Rigidbody2D.gravityScale = isFlappyBirdMode ? 0f : 1f; // Disable Unity's gravity in FlappyBird mode
     }
+
+    public float GetVerticalVelocity()
+    {
+        return m_Rigidbody2D.velocity.y;
+    }
 }

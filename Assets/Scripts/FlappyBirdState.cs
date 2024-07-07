@@ -31,6 +31,7 @@ public class FlappyBirdState : PlayerStateBase
         if (player.inputHandler.IsJumpPressed() && CanFlap())
         {
             Flap();
+            player.animator.SetTrigger("flap");
         }
 
         ApplyGravity();
@@ -69,6 +70,8 @@ public class FlappyBirdState : PlayerStateBase
 
     private void UpdateAnimation()
     {
-        player.animator.SetFloat("verticalSpeed", verticalVelocity);
+        player.animator.SetFloat("verticalSpeed", controller.GetVerticalVelocity());
+        // Reset the flap trigger to ensure it can be triggered again
+        player.animator.ResetTrigger("flap");
     }
 }
