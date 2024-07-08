@@ -4,7 +4,7 @@ public class FlappyBirdState : PlayerStateBase
 {
     private float verticalVelocity = 0f;
 
-    private float horizontalSpeed = 5f;
+    private float horizontalSpeed = 50f;
     private float gravity = -9.81f;
     private float flapForce = 5f;
     private float maxUpwardVelocity = 10f;
