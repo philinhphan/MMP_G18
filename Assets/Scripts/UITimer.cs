@@ -20,6 +20,11 @@ public class UITimer : MonoBehaviour
             TimerText.text = minutes.ToString("00") + ":" + seconds.ToString("00") + ":" + milliseconds.ToString("00");
         }
 
+        //evtl. brauchbar fürs pausenmenü später
+        if (Input.GetKeyDown("p"))
+        {
+            playing = !playing;
+        }
     }
 
 }
