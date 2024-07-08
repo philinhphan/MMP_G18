@@ -18,14 +18,17 @@ public class FlappyBirdState : PlayerStateBase
 
     public override void Enter()
     {
-        player.animator.SetBool("isFlappyBird", true);
         verticalVelocity = 0f;
         lastFlapTime = -flapCooldown;
+
+        player.animator.SetBool("isJumping", false);
+        player.animator.SetBool("isFlappyBird", true);
     }
 
     public override void Exit()
     {
         player.animator.SetBool("isFlappyBird", false);
+        player.animator.SetBool("isFlapping", false);
     }
 
     public override void Update()
@@ -35,12 +38,18 @@ public class FlappyBirdState : PlayerStateBase
         if (shouldFlap)
         {
             Flap();
+            
+        }
+
+        if (!player.inputHandler.IsJumpPressed() && player.animator.GetBool("isFlapping"))
+        {
+            player.animator.SetBool("isFlapping", false);
         }
 
         // LINE COMMENT: Use CharacterController2D's Move method
         controller.Move(0, false, shouldFlap);
 
-        ApplyGravity();
+        //ApplyGravity();
     }
 
     public override void FixedUpdate()
@@ -50,6 +59,7 @@ public class FlappyBirdState : PlayerStateBase
         if (shouldFlap)
         {
             Flap();
+            player.animator.SetBool("isFlapping", true);
         }
 
         // Get horizontal input
@@ -58,7 +68,7 @@ public class FlappyBirdState : PlayerStateBase
         // Use CharacterController2D's Move method with horizontal movement
         controller.Move(horizontalMove * horizontalSpeed * Time.fixedDeltaTime, false, shouldFlap);
 
-        ApplyGravity();
+        //ApplyGravity();
     }
 
     private bool CanFlap()
@@ -70,8 +80,9 @@ public class FlappyBirdState : PlayerStateBase
     {
         verticalVelocity = flapForce;
         lastFlapTime = Time.time;
-        player.animator.SetTrigger("flap");
 
+        //player.animator.SetBool("isFlapping", true);
+        
         // Add debug log
         Debug.Log("Flap triggered in FlappyBirdState");
     }
@@ -85,8 +96,8 @@ public class FlappyBirdState : PlayerStateBase
 
     private void UpdateAnimation()
     {
-        player.animator.SetFloat("verticalSpeed", controller.GetVerticalVelocity());
+        //player.animator.SetFloat("verticalSpeed", controller.GetVerticalVelocity());
         // Reset the flap trigger to ensure it can be triggered again
-        player.animator.ResetTrigger("flap");
+        // player.animator.ResetTrigger("flapTrigger");
     }
 }

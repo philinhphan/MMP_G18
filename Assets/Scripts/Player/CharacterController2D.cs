@@ -19,6 +19,9 @@ public class CharacterController2D : MonoBehaviour
     private bool m_FacingRight = true;
     private Vector3 m_Velocity = Vector3.zero;
 
+    private const float defaultGravityScale = 3f;
+    private const float flapGravityScale = 0f;
+
     [Header("Events")]
     [Space]
 
@@ -52,7 +55,7 @@ public class CharacterController2D : MonoBehaviour
         m_Grounded = false;
 
         // The player is grounded if a circlecast to the groundcheck position hits anything designated as ground
-        // This can be done using layers instead but Sample Assets will not overwrite your project settings.
+        // This can be done using layers instead but Sample Assets will not overwrite project settings.
         Collider2D[] colliders = Physics2D.OverlapCircleAll(m_GroundCheck.position, k_GroundedRadius, m_WhatIsGround);
         for (int i = 0; i < colliders.Length; i++)
         {
@@ -157,6 +160,7 @@ private void MoveFlappyBird(float move, bool jump)
         if (jump)
         {
             m_Rigidbody2D.velocity = new Vector2(m_Rigidbody2D.velocity.x, m_FlappyBirdJumpForce);
+
             Debug.Log("Flap applied in CharacterController2D");
         }
 
@@ -185,7 +189,7 @@ private void MoveFlappyBird(float move, bool jump)
      public void ToggleFlappyBirdMode(bool isFlappyBirdMode)
     {
         m_IsFlappyBirdMode = isFlappyBirdMode;
-        m_Rigidbody2D.gravityScale = isFlappyBirdMode ? 0f : 1f; // Disable Unity's gravity in FlappyBird mode
+        m_Rigidbody2D.gravityScale = isFlappyBirdMode ? flapGravityScale : defaultGravityScale; // Disable Unity's gravity in FlappyBird mode
 
         Debug.Log($"FlappyBird mode toggled: {isFlappyBirdMode}");
     }

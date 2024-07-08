@@ -41,8 +41,8 @@ public class PlayerMovement : MonoBehaviour
         if (currentState is FlappyBirdState)
         {
             float horizontalMove = inputHandler.GetHorizontalMovement();
-            animator.SetFloat("horizontalSpeed", Mathf.Abs(horizontalMove));
-        }
+            //animator.SetFloat("horizontalSpeed", Mathf.Abs(horizontalMove));
+        } 
     }
 
     private void FixedUpdate()

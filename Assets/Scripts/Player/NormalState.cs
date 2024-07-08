@@ -10,7 +10,8 @@ public class NormalState : PlayerStateBase
 
     public override void Enter()
     {
-        player.animator.SetBool("isFlappyBird", false);
+        
+        
     }
 
     public override void Update()
