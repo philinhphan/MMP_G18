@@ -28,19 +28,22 @@ public class FlappyBirdState : PlayerStateBase
 
     public override void Update()
     {
-        if (player.inputHandler.IsJumpPressed() && CanFlap())
+        bool shouldFlap = player.inputHandler.IsJumpPressed() && CanFlap();
+        
+        if (shouldFlap)
         {
             Flap();
-            player.animator.SetTrigger("flap");
         }
 
+        // LINE COMMENT: Use CharacterController2D's Move method
+        controller.Move(0, false, shouldFlap);
+
         ApplyGravity();
-        UpdateAnimation();
     }
 
     public override void FixedUpdate()
     {
-        MoveVertically();
+        controller.Move(0, false, player.inputHandler.IsJumpPressed());
     }
 
     private bool CanFlap()
@@ -50,23 +53,20 @@ public class FlappyBirdState : PlayerStateBase
 
     private void Flap()
     {
-        verticalVelocity = Mathf.Min(verticalVelocity + flapForce, maxUpwardVelocity);
+        verticalVelocity = flapForce;
         lastFlapTime = Time.time;
         player.animator.SetTrigger("flap");
+
+        // Add debug log
+        Debug.Log("Flap triggered in FlappyBirdState");
     }
 
     private void ApplyGravity()
     {
-        verticalVelocity += gravity * Time.deltaTime;
-        verticalVelocity = Mathf.Max(verticalVelocity, maxDownwardVelocity);
+        verticalVelocity += gravity * Time.fixedDeltaTime;
+        verticalVelocity = Mathf.Clamp(verticalVelocity, maxDownwardVelocity, maxUpwardVelocity);
     }
 
-    private void MoveVertically()
-    {
-        Vector3 movement = Vector3.up * verticalVelocity * Time.fixedDeltaTime;
-        controller.Move(0, false, false);
-        player.transform.Translate(movement);
-    }
 
     private void UpdateAnimation()
     {

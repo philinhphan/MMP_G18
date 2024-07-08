@@ -47,6 +47,13 @@ public class FlappyBirdTrigger : MonoBehaviour
             PlayerState newState = activate ? PlayerState.FlappyBird : PlayerState.Normal;
             playerMovement.SwitchState(newState);
 
+            // Directly toggle FlappyBird mode on CharacterController2D
+            CharacterController2D characterController = player.GetComponent<CharacterController2D>();
+            if (characterController != null)
+            {
+                characterController.ToggleFlappyBirdMode(activate);
+            }
+
             Debug.Log($"FlappyBird mode {(activate ? "activated" : "deactivated")}");
         }
         else

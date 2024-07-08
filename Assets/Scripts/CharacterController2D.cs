@@ -153,9 +153,11 @@ public class CharacterController2D : MonoBehaviour
         if (jump)
         {
             m_Rigidbody2D.velocity = new Vector2(m_Rigidbody2D.velocity.x, m_FlappyBirdJumpForce);
+            
+            // Add debug log
+            Debug.Log("Flap applied in CharacterController2D");
         }
     }
-
     private void Flip()
     {
         // Switch the way the player is labelled as facing.
@@ -168,10 +170,12 @@ public class CharacterController2D : MonoBehaviour
     }
 
     
-    public void ToggleFlappyBirdMode(bool isFlappyBirdMode)
+     public void ToggleFlappyBirdMode(bool isFlappyBirdMode)
     {
         m_IsFlappyBirdMode = isFlappyBirdMode;
         m_Rigidbody2D.gravityScale = isFlappyBirdMode ? 0f : 1f; // Disable Unity's gravity in FlappyBird mode
+
+        Debug.Log($"FlappyBird mode toggled: {isFlappyBirdMode}");
     }
 
     public float GetVerticalVelocity()

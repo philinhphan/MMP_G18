@@ -36,17 +36,6 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         currentState.Update();
-        // Update animator parameters
-        animator.SetBool("isFlappyBird", currentState is FlappyBirdState);
-        
-        // Use the new method from CharacterController2D
-        animator.SetFloat("verticalSpeed", characterController.GetVerticalVelocity());
-
-        // Trigger flap animation in FlappyBird mode
-        if (currentState is FlappyBirdState && inputHandler.IsJumpPressed())
-        {
-            animator.SetTrigger("flap");
-        }
 
     }
 
@@ -78,8 +67,7 @@ public class PlayerMovement : MonoBehaviour
             currentState = state;
             currentState.Enter();
 
-            // Toggle FlappyBird mode in CharacterController2D
-            characterController.ToggleFlappyBirdMode(newState == PlayerState.FlappyBird);
+            Debug.Log($"Switched to state: {newState}");
         }
         else
         {
