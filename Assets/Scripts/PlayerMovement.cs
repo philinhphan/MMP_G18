@@ -36,7 +36,13 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         currentState.Update();
-
+        
+        // Update animation based on horizontal movement in FlappyBird mode
+        if (currentState is FlappyBirdState)
+        {
+            float horizontalMove = inputHandler.GetHorizontalMovement();
+            animator.SetFloat("horizontalSpeed", Mathf.Abs(horizontalMove));
+        }
     }
 
     private void FixedUpdate()

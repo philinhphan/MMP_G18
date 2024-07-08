@@ -70,7 +70,7 @@ public class CharacterController2D : MonoBehaviour
         
         if (m_IsFlappyBirdMode)
         {
-            MoveFlappyBird(jump);
+            MoveFlappyBird(move, jump);
             return;
         }
 
@@ -144,18 +144,30 @@ public class CharacterController2D : MonoBehaviour
     }
 
     
-    private void MoveFlappyBird(bool jump)
+private void MoveFlappyBird(float move, bool jump)
     {
         // Apply gravity
         m_Rigidbody2D.velocity += Vector2.up * m_FlappyBirdGravity * Time.fixedDeltaTime;
+
+        // Apply horizontal movement
+        Vector3 targetVelocity = new Vector2(move * 10f, m_Rigidbody2D.velocity.y);
+        m_Rigidbody2D.velocity = Vector3.SmoothDamp(m_Rigidbody2D.velocity, targetVelocity, ref m_Velocity, m_MovementSmoothing);
 
         // Apply jump force if jump button is pressed
         if (jump)
         {
             m_Rigidbody2D.velocity = new Vector2(m_Rigidbody2D.velocity.x, m_FlappyBirdJumpForce);
-            
-            // Add debug log
             Debug.Log("Flap applied in CharacterController2D");
+        }
+
+        // Flip the character if needed
+        if (move > 0 && !m_FacingRight)
+        {
+            Flip();
+        }
+        else if (move < 0 && m_FacingRight)
+        {
+            Flip();
         }
     }
     private void Flip()

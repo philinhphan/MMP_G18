@@ -3,6 +3,8 @@ using UnityEngine;
 public class FlappyBirdState : PlayerStateBase
 {
     private float verticalVelocity = 0f;
+
+    private float horizontalSpeed = 5f;
     private float gravity = -9.81f;
     private float flapForce = 5f;
     private float maxUpwardVelocity = 10f;
@@ -43,7 +45,20 @@ public class FlappyBirdState : PlayerStateBase
 
     public override void FixedUpdate()
     {
-        controller.Move(0, false, player.inputHandler.IsJumpPressed());
+        bool shouldFlap = player.inputHandler.IsJumpPressed() && CanFlap();
+        
+        if (shouldFlap)
+        {
+            Flap();
+        }
+
+        // Get horizontal input
+        float horizontalMove = player.inputHandler.GetHorizontalMovement();
+
+        // Use CharacterController2D's Move method with horizontal movement
+        controller.Move(horizontalMove * horizontalSpeed * Time.fixedDeltaTime, false, shouldFlap);
+
+        ApplyGravity();
     }
 
     private bool CanFlap()
