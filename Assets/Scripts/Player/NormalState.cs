@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class NormalState : PlayerStateBase
 {
-    private float horizontalMove = 0f;
+    private float horizontalMove;
     private bool jump = false;
 
     public NormalState(PlayerMovement playerMovement, CharacterController2D characterController) 
@@ -10,7 +10,7 @@ public class NormalState : PlayerStateBase
 
     public override void Enter()
     {
-        player.animator.SetBool("isFlappyBird", false);
+        
     }
 
     public override void Update()
@@ -27,7 +27,7 @@ public class NormalState : PlayerStateBase
 
     public override void FixedUpdate()
     {
-        controller.Move(horizontalMove * Time.fixedDeltaTime, false, jump);
+        controller.Move(horizontalMove * Time.fixedDeltaTime, jump, false);
         jump = false;
     }
 

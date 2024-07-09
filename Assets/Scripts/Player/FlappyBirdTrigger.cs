@@ -54,7 +54,7 @@ public class FlappyBirdTrigger : MonoBehaviour
                 characterController.ToggleFlappyBirdMode(activate);
             }
 
-            Debug.Log($"FlappyBird mode {(activate ? "activated" : "deactivated")}");
+           // Debug.Log($"FlappyBird mode {(activate ? "activated" : "deactivated")}");
         }
         else
         {
