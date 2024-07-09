@@ -84,7 +84,7 @@ public class FlappyBirdState : PlayerStateBase
         //player.animator.SetBool("isFlapping", true);
         
         // Add debug log
-        Debug.Log("Flap triggered in FlappyBirdState");
+        //Debug.Log("Flap triggered in FlappyBirdState");
     }
 
     private void ApplyGravity()

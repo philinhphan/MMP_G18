@@ -1,11 +1,15 @@
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEditor.ShaderGraph;
 
 public class PlayerMovement : MonoBehaviour
 {
     public Animator animator;
     public CharacterController2D characterController;
     public float speed = 40f;
+    public Vector3 checkpoint;
+
+    public Vector3 startingPosition = new Vector3(-16, -7, 0);
 
     [HideInInspector]
     public InputHandler inputHandler;
@@ -60,9 +64,33 @@ public class PlayerMovement : MonoBehaviour
 
     private void ResetPosition()
     {
-        transform.position = checkpointSystem.getCurrentCheckpoint();
-        // Ensure we're in Normal state when resetting position TODO
-        SwitchState(PlayerState.Normal);
+        GameObject activeCheckpoint = CheckpointSystem.GetActiveCheckpoint();
+        Vector3 checkpointPosition;
+        bool isFlappyCheckpoint;
+
+        // StartingPosition Case - No Checkpoints collected
+        if (activeCheckpoint != null)
+        {
+            checkpointPosition = activeCheckpoint.transform.position;
+            isFlappyCheckpoint = activeCheckpoint.GetComponent<CheckpointSystem>().isFlappyCheckpoint;
+        } else
+        {
+            checkpointPosition = startingPosition;
+            isFlappyCheckpoint = false;
+        }
+
+        // Reset position to active checkpoint
+        transform.position = checkpointPosition;
+
+        // Set PlayerState according to type of checkpoint
+        if (isFlappyCheckpoint && currentState is NormalState)
+        {
+            SwitchState(PlayerState.FlappyBird);
+        }
+        else if (!isFlappyCheckpoint && currentState is FlappyBirdState)
+        {
+            SwitchState(PlayerState.Normal);
+        }
     }
 
     public void SwitchState(PlayerState newState)
@@ -73,11 +101,11 @@ public class PlayerMovement : MonoBehaviour
             currentState = state;
             currentState.Enter();
 
-            Debug.Log($"Switched to state: {newState}");
+            //Debug.Log($"Switched to state: {newState}");
         }
         else
         {
-            Debug.LogError($"State {newState} not found!");
+            //Debug.LogError($"State {newState} not found!");
         }
     }
 

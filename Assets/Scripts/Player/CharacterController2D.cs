@@ -161,7 +161,7 @@ private void MoveFlappyBird(float move, bool jump)
         {
             m_Rigidbody2D.velocity = new Vector2(m_Rigidbody2D.velocity.x, m_FlappyBirdJumpForce);
 
-            Debug.Log("Flap applied in CharacterController2D");
+            //Debug.Log("Flap applied in CharacterController2D");
         }
 
         // Flip the character if needed
@@ -191,7 +191,7 @@ private void MoveFlappyBird(float move, bool jump)
         m_IsFlappyBirdMode = isFlappyBirdMode;
         m_Rigidbody2D.gravityScale = isFlappyBirdMode ? flapGravityScale : defaultGravityScale; // Disable Unity's gravity in FlappyBird mode
 
-        Debug.Log($"FlappyBird mode toggled: {isFlappyBirdMode}");
+        //Debug.Log($"FlappyBird mode toggled: {isFlappyBirdMode}");
     }
 
     public float GetVerticalVelocity()
