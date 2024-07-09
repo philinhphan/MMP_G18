@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class NormalState : PlayerStateBase
 {
-    private float horizontalMove = 0f;
+    private float horizontalMove;
     private bool jump = false;
 
     public NormalState(PlayerMovement playerMovement, CharacterController2D characterController) 
@@ -10,7 +10,6 @@ public class NormalState : PlayerStateBase
 
     public override void Enter()
     {
-        
         
     }
 

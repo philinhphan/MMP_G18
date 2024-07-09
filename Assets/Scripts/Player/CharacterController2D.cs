@@ -3,8 +3,9 @@ using UnityEngine.Events;
 
 public class CharacterController2D : MonoBehaviour
 {
-    [SerializeField] private float m_JumpForce = 400f;
-    [SerializeField] private float m_FlapVelocity = 20;
+    private float m_JumpForce = 800f;
+    private float m_HorizontalVelocity = 10f;
+    private float m_FlapVelocity = 20f;
     [Range(0, .3f)] [SerializeField] private float m_MovementSmoothing = .05f;
     [SerializeField] private bool m_AirControl = false;
     [SerializeField] private LayerMask m_WhatIsGround;
@@ -20,9 +21,6 @@ public class CharacterController2D : MonoBehaviour
     
     private bool m_FacingRight = true;
 
-    private const float defaultGravityScale = 3f;
-    private const float flapGravityScale = 3f;
-
     [Header("Events")]
     [Space]
 
@@ -32,16 +30,12 @@ public class CharacterController2D : MonoBehaviour
     public class BoolEvent : UnityEvent<bool> { }
 
     // New variables for FlappyBird mode
-    private bool m_IsFlappyBirdMode = false; // Added to track the current mode
-    [SerializeField] private float m_FlappyBirdGravity = -9.81f; // Gravity for FlappyBird mode
-    [SerializeField] private float m_FlappyBirdJumpForce = 5f; // Jump force for FlappyBird mode
+    private bool m_IsFlappyBirdMode = false;
 
     private void Awake()
     {
         m_Rigidbody2D = GetComponent<Rigidbody2D>();
-
-        if (OnLandEvent == null)
-            OnLandEvent = new UnityEvent();
+        if (OnLandEvent == null) OnLandEvent = new UnityEvent();
     }
 
     private void FixedUpdate()
@@ -74,7 +68,7 @@ public class CharacterController2D : MonoBehaviour
         if (m_Grounded || m_AirControl)
         {
             // Move the character by finding the target velocity
-            Vector3 targetVelocity = new Vector2(move * 10f, m_Rigidbody2D.velocity.y);
+            Vector3 targetVelocity = new Vector2(move * m_HorizontalVelocity, m_Rigidbody2D.velocity.y);
             // And then smoothing it out and applying it to the character
             m_Rigidbody2D.velocity = Vector3.SmoothDamp(m_Rigidbody2D.velocity, targetVelocity, ref m_Velocity, m_MovementSmoothing);
 
@@ -106,32 +100,6 @@ public class CharacterController2D : MonoBehaviour
 
     }
 
-    
-    public void MoveFlappyBird(float move, bool flap)
-    {
-        // Apply gravity
-        //m_Rigidbody2D.velocity += Vector2.up * m_FlappyBirdGravity * Time.fixedDeltaTime;
-
-
-        // Move the character by finding the target velocity
-        Vector3 targetVelocity = new Vector2(move * 10f, m_Rigidbody2D.velocity.y);
-        // And then smoothing it out and applying it to the character
-        m_Rigidbody2D.velocity = Vector3.SmoothDamp(m_Rigidbody2D.velocity, targetVelocity, ref m_Velocity, m_MovementSmoothing);
-
-        // Flip the character if needed
-        if (move > 0 && !m_FacingRight)
-        {
-            Flip();
-        }
-        else if (move < 0 && m_FacingRight)
-        {
-            Flip();
-        }
-
-        // Apply jump force if jump button is pressed
-       
-    }
-
     private void Flip()
     {
         // Switch the way the player is labelled as facing.
@@ -147,13 +115,5 @@ public class CharacterController2D : MonoBehaviour
      public void ToggleFlappyBirdMode(bool isFlappyBirdMode)
      {
         m_IsFlappyBirdMode = isFlappyBirdMode;
-        //m_Rigidbody2D.gravityScale = isFlappyBirdMode ? flapGravityScale : defaultGravityScale; // Disable Unity's gravity in FlappyBird mode
-
-        //Debug.Log($"FlappyBird mode toggled: {isFlappyBirdMode}");
-    }
-
-    public float GetVerticalVelocity()
-    {
-        return m_Rigidbody2D.velocity.y;
     }
 }

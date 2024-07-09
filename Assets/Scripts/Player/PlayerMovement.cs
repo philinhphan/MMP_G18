@@ -24,18 +24,6 @@ public class PlayerMovement : MonoBehaviour
         InitializeStates();
     }
 
-    private void InitializeStates()
-    {
-        states = new Dictionary<PlayerState, PlayerStateBase>
-        {
-            { PlayerState.Normal, new NormalState(this, characterController) },
-            { PlayerState.FlappyBird, new FlappyBirdState(this, characterController) }
-        };
-
-        currentState = states[PlayerState.Normal];
-        currentState.Enter();
-    }
-
     private void Update()
     {
         currentState.Update();
@@ -52,6 +40,18 @@ public class PlayerMovement : MonoBehaviour
         {
             ResetPosition();
         }
+    }
+
+    private void InitializeStates()
+    {
+        states = new Dictionary<PlayerState, PlayerStateBase>
+        {
+            { PlayerState.Normal, new NormalState(this, characterController) },
+            { PlayerState.FlappyBird, new FlappyBirdState(this, characterController) }
+        };
+
+        currentState = states[PlayerState.Normal];
+        currentState.Enter();
     }
 
     private void ResetPosition()
