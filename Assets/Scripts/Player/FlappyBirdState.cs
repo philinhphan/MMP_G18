@@ -13,13 +13,17 @@ public class FlappyBirdState : PlayerStateBase
     private float flapCooldown = 0.2f;
     private float lastFlapTime = -1f;
 
+    private bool flap = false;
+
+    private float horizontalMove = 0f;
+
     public FlappyBirdState(PlayerMovement playerMovement, CharacterController2D characterController) 
         : base(playerMovement, characterController) { }
 
     public override void Enter()
     {
-        verticalVelocity = 0f;
-        lastFlapTime = -flapCooldown;
+        //verticalVelocity = 0f;
+        //lastFlapTime = -flapCooldown;
 
         player.animator.SetBool("isJumping", false);
         player.animator.SetBool("isFlappyBird", true);
@@ -33,12 +37,21 @@ public class FlappyBirdState : PlayerStateBase
 
     public override void Update()
     {
-        bool shouldFlap = player.inputHandler.IsJumpPressed() && CanFlap();
+        horizontalMove = player.inputHandler.GetHorizontalMovement() * player.speed;
+
+        if (player.inputHandler.IsJumpPressed() && CanFlap())
+        {
+            Debug.Log("flap is true");
+            flap = true;
+            lastFlapTime = Time.time;
+            player.animator.SetBool("isFlapping", true);
+        }
+
+        /*bool shouldFlap = player.inputHandler.IsJumpPressed() && CanFlap();
         
         if (shouldFlap)
         {
             Flap();
-            
         }
 
         if (!player.inputHandler.IsJumpPressed() && player.animator.GetBool("isFlapping"))
@@ -47,14 +60,26 @@ public class FlappyBirdState : PlayerStateBase
         }
 
         // LINE COMMENT: Use CharacterController2D's Move method
-        controller.Move(0, false, shouldFlap);
+        controller.Move(0, shouldFlap);
 
-        //ApplyGravity();
+        //ApplyGravity();*/
     }
 
     public override void FixedUpdate()
     {
-        bool shouldFlap = player.inputHandler.IsJumpPressed() && CanFlap();
+
+        /*if (flap) {
+            Debug.Log("flap in fixed update");
+            lastFlapTime = Time.time;
+            player.animator.SetBool("isFlapping", true);
+        }*/
+
+        controller.Move(horizontalMove * Time.fixedDeltaTime, false ,flap);
+        flap = false;
+        player.animator.SetBool("isFlapping", false);
+
+
+        /*bool shouldFlap = player.inputHandler.IsJumpPressed() && CanFlap();
         
         if (shouldFlap)
         {
@@ -66,9 +91,9 @@ public class FlappyBirdState : PlayerStateBase
         float horizontalMove = player.inputHandler.GetHorizontalMovement();
 
         // Use CharacterController2D's Move method with horizontal movement
-        controller.Move(horizontalMove * horizontalSpeed * Time.fixedDeltaTime, false, shouldFlap);
+        controller.Move(horizontalMove * horizontalSpeed * Time.fixedDeltaTime, shouldFlap);
 
-        //ApplyGravity();
+        //ApplyGravity();*/
     }
 
     private bool CanFlap()
@@ -78,19 +103,14 @@ public class FlappyBirdState : PlayerStateBase
 
     private void Flap()
     {
-        verticalVelocity = flapForce;
-        lastFlapTime = Time.time;
-
-        //player.animator.SetBool("isFlapping", true);
+        //verticalVelocity = flapForce;
         
-        // Add debug log
-        //Debug.Log("Flap triggered in FlappyBirdState");
     }
 
     private void ApplyGravity()
     {
-        verticalVelocity += gravity * Time.fixedDeltaTime;
-        verticalVelocity = Mathf.Clamp(verticalVelocity, maxDownwardVelocity, maxUpwardVelocity);
+        //verticalVelocity += gravity * Time.fixedDeltaTime;
+        //verticalVelocity = Mathf.Clamp(verticalVelocity, maxDownwardVelocity, maxUpwardVelocity);
     }
 
 

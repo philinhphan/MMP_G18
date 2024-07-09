@@ -7,7 +7,6 @@ public class PlayerMovement : MonoBehaviour
     public Animator animator;
     public CharacterController2D characterController;
     public float speed = 40f;
-    public Vector3 checkpoint;
 
     public Vector3 startingPosition = new Vector3(-16, -7, 0);
 
@@ -40,13 +39,6 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         currentState.Update();
-        
-        // Update animation based on horizontal movement in FlappyBird mode
-        if (currentState is FlappyBirdState)
-        {
-            float horizontalMove = inputHandler.GetHorizontalMovement();
-            //animator.SetFloat("horizontalSpeed", Mathf.Abs(horizontalMove));
-        } 
     }
 
     private void FixedUpdate()
@@ -100,12 +92,10 @@ public class PlayerMovement : MonoBehaviour
             currentState.Exit();
             currentState = state;
             currentState.Enter();
-
-            //Debug.Log($"Switched to state: {newState}");
         }
         else
         {
-            //Debug.LogError($"State {newState} not found!");
+            Debug.LogError($"State {newState} not found!");
         }
     }
 
