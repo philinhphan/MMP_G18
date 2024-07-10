@@ -2,10 +2,9 @@ using UnityEngine;
 
 public class FlappyBirdState : PlayerStateBase
 {
-    private float horizontalMove;
     private float flapCooldown = .2f;
     private float lastFlapTime = -1f;
-    private bool flap = false;
+    private bool isFlapping = false;
 
     public FlappyBirdState(PlayerMovement playerMovement, CharacterController2D characterController) 
         : base(playerMovement, characterController) { }
@@ -26,11 +25,9 @@ public class FlappyBirdState : PlayerStateBase
 
     public override void Update()
     {
-        horizontalMove = player.inputHandler.GetHorizontalMovement();
-
         if (player.inputHandler.IsJumpPressed() && CanFlap())
         {
-            flap = true;
+            isFlapping = true;
             lastFlapTime = Time.time;
             player.animator.SetBool("isFlapping", true);
         }
@@ -38,8 +35,8 @@ public class FlappyBirdState : PlayerStateBase
 
     public override void FixedUpdate()
     {
-        controller.Move(horizontalMove * Time.fixedDeltaTime, false ,flap);
-        flap = false;
+        controller.Move(player.horizontalMove * Time.fixedDeltaTime, false, false, isFlapping);
+        isFlapping = false;
         player.animator.SetBool("isFlapping", false);
     }
 

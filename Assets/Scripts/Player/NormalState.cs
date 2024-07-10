@@ -2,31 +2,42 @@ using UnityEngine;
 
 public class NormalState : PlayerStateBase
 {
-    private float horizontalMove;
-    private bool jump = false;
+    
+
+    private bool isJumping = false;
+    private bool hasReleasedJump = false;
 
     public NormalState(PlayerMovement playerMovement, CharacterController2D characterController) 
         : base(playerMovement, characterController) { }
 
+
     public override void Update()
     {
-        horizontalMove = player.inputHandler.GetHorizontalMovement();
-        player.animator.SetFloat("speed", Mathf.Abs(horizontalMove));
+        player.animator.SetFloat("speed", Mathf.Abs(player.horizontalMove));
 
-        if (player.inputHandler.IsJumpPressed())
+
+        if (Input.GetButtonDown("Jump"))
         {
-            jump = true;
+            isJumping = true;
             player.animator.SetBool("isJumping", true);
+        }
+
+        if (Input.GetButtonUp("Jump"))
+        {
+            hasReleasedJump = true;
         }
     }
 
     public override void FixedUpdate()
     {
-        controller.Move(horizontalMove * Time.fixedDeltaTime, jump, false);
-        jump = false;
-        if (controller.GetIsGrounded())
+        controller.Move(player.horizontalMove * Time.fixedDeltaTime, isJumping, hasReleasedJump, false);
+
+        if (controller.GetIsGrounded() && !isJumping && player.animator.GetBool("isJumping"))
         {
             player.animator.SetBool("isJumping", false);
         }
+
+        isJumping = false;
+        hasReleasedJump = false;
     }
 }

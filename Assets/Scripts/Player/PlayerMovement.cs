@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using UnityEditor.ShaderGraph;
 
 public class PlayerMovement : MonoBehaviour
-{
+{ 
+    public Rigidbody2D rb;
     public Animator animator;
     public CharacterController2D characterController;
+    public float horizontalMove;
 
     public Vector3 startingPosition = new Vector3(-16, -7, 0);
     public InputHandler inputHandler;
@@ -19,10 +21,13 @@ public class PlayerMovement : MonoBehaviour
         inputHandler = new InputHandler();
         checkpointSystem = GetComponent<CheckpointSystem>();
         InitializeStates();
-    }
+        rb = GetComponent<Rigidbody2D>();
+
+}
 
     private void Update()
     {
+        horizontalMove = inputHandler.GetHorizontalMovement();
         currentState.Update();
     }
 
