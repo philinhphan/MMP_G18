@@ -32,6 +32,8 @@ public class CharacterController2D : MonoBehaviour
         if (collision.CompareTag("Ground"))
         {
             isGrounded = true;
+            Debug.Log("Trigger enter, collision with: " + collision.name);
+            Debug.Log("isGrounded =" + isGrounded);
         }
     }
 
@@ -39,7 +41,9 @@ public class CharacterController2D : MonoBehaviour
     {
         if (collision.CompareTag("Ground"))
         {
+            Debug.Log("Trigger exit, collision with: " + collision.name);
             isGrounded = false;
+            Debug.Log("isGrounded =" + isGrounded);
         }
     }
 

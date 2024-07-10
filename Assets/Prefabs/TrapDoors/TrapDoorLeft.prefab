@@ -73,8 +73,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1371644553
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0, g: 0.5754717, b: 0.5517225, a: 1}
@@ -144,7 +144,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 0.4
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
@@ -175,11 +175,11 @@ HingeJoint2D:
   m_BreakAction: 3
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: -0.5091556, y: -0.46543884}
-  m_ConnectedAnchor: {x: 84.050934, y: 19.71364}
+  m_ConnectedAnchor: {x: 1.0797647, y: -1.5313435}
   m_UseMotor: 1
   m_Motor:
-    m_MotorSpeed: -25
-    m_MaximumMotorForce: 50
+    m_MotorSpeed: -225.94
+    m_MaximumMotorForce: 47.1
   m_UseLimits: 1
   m_AngleLimits:
     m_LowerAngle: 0
