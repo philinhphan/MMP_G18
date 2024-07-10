@@ -11,6 +11,7 @@ public class PlayerMovement : MonoBehaviour {
 
     float horizontalMove = 0f;
     bool jump = false;
+    private Rigidbody2D m_Rigidbody2D;
 
     private CheckpointSystem checkpointSystem;
 
@@ -18,6 +19,7 @@ public class PlayerMovement : MonoBehaviour {
     void Start()
     {
         checkpointSystem = GetComponent<CheckpointSystem>();
+        m_Rigidbody2D = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
@@ -25,9 +27,11 @@ public class PlayerMovement : MonoBehaviour {
     {
 
         
-
+        
         horizontalMove = Input.GetAxisRaw("Horizontal") * speed;
 
+        animator.SetFloat("yVelocity", m_Rigidbody2D.velocity.y);
+        Debug.Log(m_Rigidbody2D.velocity.y);
         animator.SetFloat("speed", Mathf.Abs(horizontalMove));
 
         if (Input.GetButtonDown("Jump"))
