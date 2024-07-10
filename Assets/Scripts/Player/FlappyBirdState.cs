@@ -26,7 +26,7 @@ public class FlappyBirdState : PlayerStateBase
 
     public override void Update()
     {
-        horizontalMove = player.inputHandler.GetHorizontalMovement() * player.speed;
+        horizontalMove = player.inputHandler.GetHorizontalMovement();
 
         if (player.inputHandler.IsJumpPressed() && CanFlap())
         {

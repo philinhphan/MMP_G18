@@ -6,18 +6,15 @@ public class PlayerMovement : MonoBehaviour
 {
     public Animator animator;
     public CharacterController2D characterController;
-    public float speed = 40f;
 
     public Vector3 startingPosition = new Vector3(-16, -7, 0);
-
-    [HideInInspector]
     public InputHandler inputHandler;
 
     private Dictionary<PlayerState, PlayerStateBase> states;
     private PlayerStateBase currentState;
     private CheckpointSystem checkpointSystem;
 
-    private void Awake()
+    private void Start()
     {
         inputHandler = new InputHandler();
         checkpointSystem = GetComponent<CheckpointSystem>();
@@ -42,18 +39,6 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void InitializeStates()
-    {
-        states = new Dictionary<PlayerState, PlayerStateBase>
-        {
-            { PlayerState.Normal, new NormalState(this, characterController) },
-            { PlayerState.FlappyBird, new FlappyBirdState(this, characterController) }
-        };
-
-        currentState = states[PlayerState.Normal];
-        currentState.Enter();
-    }
-
     private void ResetPosition()
     {
         GameObject activeCheckpoint = CheckpointSystem.GetActiveCheckpoint();
@@ -65,7 +50,8 @@ public class PlayerMovement : MonoBehaviour
         {
             checkpointPosition = activeCheckpoint.transform.position;
             isFlappyCheckpoint = activeCheckpoint.GetComponent<CheckpointSystem>().isFlappyCheckpoint;
-        } else
+        }
+        else
         {
             checkpointPosition = startingPosition;
             isFlappyCheckpoint = false;
@@ -85,6 +71,18 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    private void InitializeStates()
+    {
+        states = new Dictionary<PlayerState, PlayerStateBase>
+        {
+            { PlayerState.Normal, new NormalState(this, characterController) },
+            { PlayerState.FlappyBird, new FlappyBirdState(this, characterController) }
+        };
+
+        currentState = states[PlayerState.Normal];
+        currentState.Enter();
+    }
+
     public void SwitchState(PlayerState newState)
     {
         if (states.TryGetValue(newState, out PlayerStateBase state))
@@ -97,10 +95,5 @@ public class PlayerMovement : MonoBehaviour
         {
             Debug.LogError($"State {newState} not found!");
         }
-    }
-
-    public void OnLanding()
-    {
-        currentState.OnLanding();
     }
 }
