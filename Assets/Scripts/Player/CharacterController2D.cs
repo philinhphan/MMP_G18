@@ -62,15 +62,12 @@ public class CharacterController2D : MonoBehaviour
             if ((move > 0 && !isFacingRight) || (move < 0 && isFacingRight)) Flip();
         }
 
-        if (isGrounded)
+        if (isGrounded && isJumping)
         { 
-            if (isJumping)
-            {
-                rb.velocity = new Vector2(rb.velocity.x, jumpForce * 1.5f);
-            }
+            rb.velocity = new Vector2(rb.velocity.x, jumpForce * 1.5f);
         }
 
-        if (hasReleasedJump && rb.velocity.y > 0)
+        if (hasReleasedJump)
         {
             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
         }
