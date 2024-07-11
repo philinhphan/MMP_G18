@@ -355,8 +355,7 @@ MonoBehaviour:
   hasAirControl: 1
   normalSpeed: 400
   flapForce: 12
-  jumpForce: 15
-  rb: {fileID: 0}
+  jumpForce: 10.1
 --- !u!1 &8048481586155841352
 GameObject:
   m_ObjectHideFlags: 0
