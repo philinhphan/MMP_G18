@@ -13,12 +13,20 @@ public class CharacterController2D : MonoBehaviour
     [SerializeField] private float jumpForce;
     /* END */
 
-    private Rigidbody2D rb;
-    
+    [HideInInspector] public Rigidbody2D rb;
+    [HideInInspector] public Animator animator;
+
     private bool isGrounded;
+    private bool hasTriggeredJump;
     private bool isFacingRight = true;
     private bool m_IsFlappyBirdMode = false;
+
     private int collisionCounter = 0;
+
+    private float coyoteTime = 0.1f;
+    private float coyoteCounter;
+    private float jumpBufferTime = 0.1f;
+    private float jumpBufferCounter;
 
     public bool GetIsGrounded()
     {
@@ -28,6 +36,26 @@ public class CharacterController2D : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
+    }
+    private void Update()
+    {
+        if (isGrounded)
+        {
+            coyoteCounter = coyoteTime;
+        } else
+        {
+            coyoteCounter -= Time.deltaTime;
+        }
+
+        if (hasTriggeredJump)
+        {
+            jumpBufferCounter = jumpBufferTime;
+        }
+        else
+        {
+            jumpBufferCounter -= Time.deltaTime;
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -35,7 +63,10 @@ public class CharacterController2D : MonoBehaviour
         if (collision.CompareTag("Ground"))
         {
             collisionCounter += 1;
-            if (!isGrounded && collisionCounter >= 1) isGrounded = true;
+            if (!isGrounded && collisionCounter >= 1)
+            {
+                isGrounded = true;
+            }
         }
     }
 
@@ -44,21 +75,25 @@ public class CharacterController2D : MonoBehaviour
         if (collision.CompareTag("Ground"))
         {
             collisionCounter -= 1;
-            if (isGrounded && collisionCounter == 0) isGrounded = false;
+            if (isGrounded && collisionCounter == 0)
+            {
+                isGrounded = false;
+            }
         }
     }
 
-    public void Move(float move, bool isJumping, bool hasReleasedJump, bool isFlapping)
+    public void Move(float move, bool hasTriggeredJump, bool hasReleasedJump, bool isFlapping)
     {
+        this.hasTriggeredJump = hasTriggeredJump;
 
         // Player cannot be jumping and flapping at the same time
-        if (isJumping && isFlapping)
+        if(hasTriggeredJump && isFlapping)
         {
             Debug.LogError("jump and flap paramter are not allowed to be true simultanously");
             return;
         }
 
-        //Only control the player if grounded is true or airControl is turned on
+        //Only control the player if grounded is true and/ or airControl is turned on
         if (isGrounded || hasAirControl)
         {
             // Move the character by finding the target velocity
@@ -68,20 +103,21 @@ public class CharacterController2D : MonoBehaviour
             if ((move > 0 && !isFacingRight) || (move < 0 && isFacingRight)) Flip();
         }
 
-
-        // Normal Jump on jump input and when grounded
-        if (isGrounded && isJumping)
-        { 
-            rb.velocity = new Vector2(rb.velocity.x, jumpForce * 1.5f);
+        // Is on Ground and starts to jump
+        if (coyoteCounter > 0f && jumpBufferCounter > 0f)
+        {
+            rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+            jumpBufferCounter = 0f;
         }
 
-        // Jump Cut
+        // Is jumping and released the jump button
         if (hasReleasedJump)
         {
             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
+            coyoteCounter = 0f;
         }
 
-        // Normal Flap
+        // Is flapping
         if (isFlapping)
         {
             rb.velocity = new Vector2(rb.velocity.x, flapForce);

@@ -9,12 +9,11 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] private Vector3 startingPosition = new Vector3(-16, -7, 0);
 
-    [SerializeField] public Animator animator;
     [SerializeField] public InputHandler inputHandler;
 
     [HideInInspector] public float horizontalMove;
 
-    private Rigidbody2D rb;
+    [HideInInspector] public Rigidbody2D rb;
 
     private Dictionary<PlayerState, PlayerStateBase> states;
     private PlayerStateBase currentState;
@@ -26,7 +25,6 @@ public class PlayerMovement : MonoBehaviour
         checkpointSystem = GetComponent<CheckpointSystem>();
         InitializeStates();
         rb = GetComponent<Rigidbody2D>();
-
 }
 
     private void Update()
