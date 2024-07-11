@@ -60,7 +60,6 @@ public class EnemyController2D : MonoBehaviour
         if(other.CompareTag("EnemyBound"))
         {
            Flip();
-           Debug.Log("Bound hit");
         }
     }
 
