@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - Obstacle
+  - Ground
+  - Checkpoint
+  - EnemyBound
   layers:
   - Default
   - TransparentFX
@@ -14,7 +17,7 @@ TagManager:
   - UI
   - Player
   - Obstacle
-  - 
+  - Ground
   - 
   - 
   - 
@@ -41,4 +44,19 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Background
+    uniqueID: 2070504583
+    locked: 0
+  - name: Environment
+    uniqueID: 2923322743
+    locked: 0
+  - name: Obstacles
+    uniqueID: 3351619063
+    locked: 0
+  - name: Player
+    uniqueID: 961630641
+    locked: 0
+  - name: HazeScreen
+    uniqueID: 2105250257
     locked: 0
