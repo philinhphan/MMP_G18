@@ -14,12 +14,12 @@ public class FlappyBirdState : PlayerStateBase
         lastFlapTime = -flapCooldown;
 
         controller.animator.SetBool("isJumping", false);
-        controller.animator.SetBool("isFlappyBird", true);
+        controller.animator.SetBool("isFlying", true);
     }
 
     public override void Exit()
     {
-        controller.animator.SetBool("isFlappyBird", false);
+        controller.animator.SetBool("isFlying", false);
         controller.animator.SetBool("isFlapping", false);
     }
 

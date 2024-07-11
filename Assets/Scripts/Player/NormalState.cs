@@ -12,6 +12,7 @@ public class NormalState : PlayerStateBase
     public override void Update()
     {
         controller.animator.SetFloat("speed", Mathf.Abs(player.horizontalMove));
+        controller.animator.SetFloat("yVelocity", player.rb.velocity.y);
 
         if (Input.GetButtonDown("Jump"))
         {
