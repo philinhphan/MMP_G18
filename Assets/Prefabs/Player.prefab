@@ -333,7 +333,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf862109dddf30242a08390457fab3dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rb: {fileID: 0}
   characterController: {fileID: 5108034402879774425}
   startingPosition: {x: -16, y: -7, z: 0}
   animator: {fileID: 2047873156284160160}
@@ -356,7 +355,7 @@ MonoBehaviour:
   hasAirControl: 1
   normalSpeed: 400
   flapForce: 12
-  jumpForce: 9.5
+  jumpForce: 10.1
 --- !u!1 &8048481586155841352
 GameObject:
   m_ObjectHideFlags: 0
