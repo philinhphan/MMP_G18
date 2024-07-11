@@ -56,3 +56,6 @@ TagManager:
   - name: Player
     uniqueID: 961630641
     locked: 0
+  - name: HazeScreen
+    uniqueID: 2105250257
+    locked: 0
