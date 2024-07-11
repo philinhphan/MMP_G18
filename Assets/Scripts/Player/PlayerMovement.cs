@@ -4,13 +4,17 @@ using UnityEditor.ShaderGraph;
 
 public class PlayerMovement : MonoBehaviour
 { 
-    private Rigidbody2D rb;
-    public Animator animator;
-    public CharacterController2D characterController;
-    public float horizontalMove;
+    
+    [SerializeField] private CharacterController2D characterController;
 
-    public Vector3 startingPosition = new Vector3(-16, -7, 0);
-    public InputHandler inputHandler;
+    [SerializeField] private Vector3 startingPosition = new Vector3(-16, -7, 0);
+
+    [SerializeField] public Animator animator;
+    [SerializeField] public InputHandler inputHandler;
+
+    [HideInInspector] public float horizontalMove;
+
+    private Rigidbody2D rb;
 
     private Dictionary<PlayerState, PlayerStateBase> states;
     private PlayerStateBase currentState;
@@ -38,10 +42,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Obstacle"))
-        {
-            ResetPosition();
-        }
+        if (collision.gameObject.CompareTag("Obstacle")) ResetPosition();
     }
 
     private void ResetPosition()
