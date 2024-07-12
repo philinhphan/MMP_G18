@@ -8,6 +8,7 @@ TagManager:
   - Ground
   - Checkpoint
   - EnemyBound
+  - Timer
   layers:
   - Default
   - TransparentFX

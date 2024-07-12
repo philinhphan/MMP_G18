@@ -3,9 +3,9 @@ using UnityEngine.UI;
 
 public class UITimer : MonoBehaviour
 {
-    public Text TimerText;
+    public Text timerText;
     public bool playing;
-    private float Timer;
+    private float timer;
 
     void Update()
     {
@@ -13,17 +13,11 @@ public class UITimer : MonoBehaviour
         if (playing == true)
         {
 
-            Timer += Time.deltaTime;
-            int minutes = Mathf.FloorToInt(Timer / 60f);
-            int seconds = Mathf.FloorToInt(Timer % 60f);
-            int milliseconds = Mathf.FloorToInt((Timer * 100f) % 100f);
-            TimerText.text = minutes.ToString("00") + ":" + seconds.ToString("00") + ":" + milliseconds.ToString("00");
-        }
-
-        //evtl. brauchbar fürs pausenmenü später
-        if (Input.GetKeyDown("p"))
-        {
-            playing = !playing;
+            timer += Time.deltaTime;
+            int minutes = Mathf.FloorToInt(timer / 60f);
+            int seconds = Mathf.FloorToInt(timer % 60f);
+            int milliseconds = Mathf.FloorToInt((timer * 100f) % 100f);
+            timerText.text = minutes.ToString("00") + ":" + seconds.ToString("00") + ":" + milliseconds.ToString("00");
         }
     }
 
