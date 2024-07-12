@@ -55519,6 +55519,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1001592472}
     m_Modifications:
+    - target: {fileID: 2316523861800595083, guid: 4739610336fed5a42b10a4c4f1f6da41, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 8.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 3329182785878872901, guid: 4739610336fed5a42b10a4c4f1f6da41, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -8.17
+      objectReference: {fileID: 0}
     - target: {fileID: 5832449304065359148, guid: 4739610336fed5a42b10a4c4f1f6da41, type: 3}
       propertyPath: m_Name
       value: EnemyWrapper
@@ -55537,7 +55545,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8563347049990823006, guid: 4739610336fed5a42b10a4c4f1f6da41, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.06
+      value: 0.04
       objectReference: {fileID: 0}
     - target: {fileID: 9129305194028864201, guid: 4739610336fed5a42b10a4c4f1f6da41, type: 3}
       propertyPath: m_LocalPosition.x
