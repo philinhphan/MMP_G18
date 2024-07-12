@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -17,6 +19,8 @@ public class CharacterController2D : MonoBehaviour
     [HideInInspector] public Rigidbody2D rb;
     [HideInInspector] public Animator animator;
 
+    private Dissolve dissolve;
+
     private bool isGrounded;
     private bool hasTriggeredJump;
     private bool isFacingRight = true;
@@ -29,7 +33,14 @@ public class CharacterController2D : MonoBehaviour
     private float jumpBufferTime = 0.1f;
     private float jumpBufferCounter;
 
-    
+    private float deathDelay = 1f;
+
+    private Vector3 checkpointPosition;
+    private bool isFlappyCheckpoint;
+
+    private bool isDying;
+
+    private bool isMovementLocked = false;
 
     public bool GetIsGrounded()
     {
@@ -40,6 +51,7 @@ public class CharacterController2D : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        dissolve = GetComponent<Dissolve>();
     }
     private void Update()
     {
@@ -63,7 +75,19 @@ public class CharacterController2D : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Obstacle")) ResetPosition();
+        if (collision.gameObject.CompareTag("Obstacle"))
+        {
+            rb.velocity = Vector3.zero;
+            rb.constraints = RigidbodyConstraints2D.FreezeAll;
+
+            isMovementLocked = true;
+            if (!isDying)
+            {
+                isDying = true;
+                StartCoroutine(Die());
+            }
+            
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -92,43 +116,46 @@ public class CharacterController2D : MonoBehaviour
 
     public void Move(float move, bool hasTriggeredJump, bool hasReleasedJump, bool isFlapping)
     {
-        this.hasTriggeredJump = hasTriggeredJump;
-
-        // Player cannot be jumping and flapping at the same time
-        if(hasTriggeredJump && isFlapping)
+        if (!isMovementLocked)
         {
-            Debug.LogError("jump and flap paramter are not allowed to be true simultanously");
-            return;
-        }
+            this.hasTriggeredJump = hasTriggeredJump;
 
-        //Only control the player if grounded is true and/ or airControl is turned on
-        if (isGrounded || hasAirControl)
-        {
-            // Move the character by finding the target velocity
-            Vector3 targetVelocity = new Vector2(move * normalSpeed, rb.velocity.y);
-            rb.velocity = targetVelocity;
-            
-            if ((move > 0 && !isFacingRight) || (move < 0 && isFacingRight)) Flip();
-        }
+            // Player cannot be jumping and flapping at the same time
+            if (hasTriggeredJump && isFlapping)
+            {
+                Debug.LogError("jump and flap paramter are not allowed to be true simultanously");
+                return;
+            }
 
-        // Is on Ground and starts to jump
-        if (coyoteCounter > 0f && jumpBufferCounter > 0f)
-        {
-            rb.velocity = new Vector2(rb.velocity.x, jumpForce);
-            jumpBufferCounter = 0f;
-        }
+            //Only control the player if grounded is true and/ or airControl is turned on
+            if (isGrounded || hasAirControl)
+            {
+                // Move the character by finding the target velocity
+                Vector3 targetVelocity = new Vector2(move * normalSpeed, rb.velocity.y);
+                rb.velocity = targetVelocity;
 
-        // Is jumping and released the jump button
-        if (hasReleasedJump)
-        {
-            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
-            coyoteCounter = 0f;
-        }
+                if ((move > 0 && !isFacingRight) || (move < 0 && isFacingRight)) Flip();
+            }
 
-        // Is flapping
-        if (isFlapping)
-        {
-            rb.velocity = new Vector2(rb.velocity.x, flapForce);
+            // Is on Ground and starts to jump
+            if (coyoteCounter > 0f && jumpBufferCounter > 0f)
+            {
+                rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+                jumpBufferCounter = 0f;
+            }
+
+            // Is jumping and released the jump button
+            if (hasReleasedJump)
+            {
+                rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
+                coyoteCounter = 0f;
+            }
+
+            // Is flapping
+            if (isFlapping)
+            {
+                rb.velocity = new Vector2(rb.velocity.x, flapForce);
+            }
         }
     }
 
@@ -148,10 +175,21 @@ public class CharacterController2D : MonoBehaviour
         m_IsFlappyBirdMode = isFlappyBirdMode;
     }
 
+    public IEnumerator Die()
+    {
+        StartCoroutine(dissolve.Vanish(true));
+        yield return new WaitForSeconds(deathDelay);
+        ResetPosition();
+        StartCoroutine(dissolve.Appear(true));
+        isMovementLocked = false;
+        rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+        isDying = false;
+    }
+
     public void ResetPosition()
     {
         GameObject activeCheckpoint = CheckpointSystem.GetActiveCheckpoint();
-        Vector3 checkpointPosition;
+        
         bool isFlappyCheckpoint;
 
         // StartingPosition Case - No Checkpoints collected
@@ -166,9 +204,13 @@ public class CharacterController2D : MonoBehaviour
             isFlappyCheckpoint = false;
         }
 
-        // Reset position to active checkpoint
         rb.transform.position = checkpointPosition;
+        ResetPlayerState();
 
+    }
+
+    private void ResetPlayerState()
+    {
         PlayerMovement movement = GetComponent<PlayerMovement>();
 
         // Set PlayerState according to type of checkpoint
@@ -181,4 +223,6 @@ public class CharacterController2D : MonoBehaviour
             movement.SwitchState(PlayerState.Normal);
         }
     }
+
+    
 }
