@@ -77,10 +77,13 @@ public class CharacterController2D : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Obstacle"))
         {
+            rb.velocity = Vector3.zero;
+            rb.constraints = RigidbodyConstraints2D.FreezeAll;
+
+            isMovementLocked = true;
             if (!isDying)
             {
                 isDying = true;
-                isMovementLocked = true;
                 StartCoroutine(Die());
             }
             
@@ -178,8 +181,9 @@ public class CharacterController2D : MonoBehaviour
         yield return new WaitForSeconds(deathDelay);
         ResetPosition();
         StartCoroutine(dissolve.Appear(true));
-        isDying = false;
         isMovementLocked = false;
+        rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+        isDying = false;
     }
 
     public void ResetPosition()
