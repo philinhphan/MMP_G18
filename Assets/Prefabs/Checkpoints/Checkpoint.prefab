@@ -143,4 +143,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ed1c02dea87b2c4ca13c91ed6e65499, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingPosition: {x: -18, y: 7, z: 0}
+  isFlappyCheckpoint: 0
+  isActive: 0
