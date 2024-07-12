@@ -7,10 +7,12 @@ public class PauseMenu : MonoBehaviour
 {
     // Start is called before the first frame update
 
-    public GameObject pauseMenuUI;
-    public static bool isPaused = false;
+    [SerializeField] private GameObject pauseMenuUI;
+    [SerializeField] private CharacterController2D characterController;
 
+    public static bool isPaused = false;
     private string mainMenuSceneName = "StartScreen";
+
 
     // Update is called once per frame
     void Update()
@@ -25,6 +27,12 @@ public class PauseMenu : MonoBehaviour
                 Pause();
             }
         }
+    }
+
+    public void RestartFromCheckpoint()
+    {
+        characterController.ResetPosition();
+        Resume();
     }
 
     public void Resume()
@@ -47,5 +55,10 @@ public class PauseMenu : MonoBehaviour
         SceneManager.LoadScene(mainMenuSceneName);
     }
 
-
+    public void ReloadLevel()
+    {
+        Scene scene = SceneManager.GetActiveScene();
+        SceneManager.LoadScene(scene.name);
+        Time.timeScale = 1;
+    }
 }

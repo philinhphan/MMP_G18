@@ -6,6 +6,7 @@ public class CharacterController2D : MonoBehaviour
 
     [SerializeField] private LayerMask m_WhatIsGround;
     [SerializeField] private bool hasAirControl = true;
+    [SerializeField] private Vector3 startingPosition = new Vector3(-16, -7, 0);
 
     /* VALUES SET IN INSPECTOR */
     [SerializeField] private float normalSpeed;
@@ -27,6 +28,8 @@ public class CharacterController2D : MonoBehaviour
     private float coyoteCounter;
     private float jumpBufferTime = 0.1f;
     private float jumpBufferCounter;
+
+    
 
     public bool GetIsGrounded()
     {
@@ -56,6 +59,11 @@ public class CharacterController2D : MonoBehaviour
         {
             jumpBufferCounter -= Time.deltaTime;
         }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Obstacle")) ResetPosition();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -138,5 +146,39 @@ public class CharacterController2D : MonoBehaviour
     public void ToggleFlappyBirdMode(bool isFlappyBirdMode)
     {
         m_IsFlappyBirdMode = isFlappyBirdMode;
+    }
+
+    public void ResetPosition()
+    {
+        GameObject activeCheckpoint = CheckpointSystem.GetActiveCheckpoint();
+        Vector3 checkpointPosition;
+        bool isFlappyCheckpoint;
+
+        // StartingPosition Case - No Checkpoints collected
+        if (activeCheckpoint != null)
+        {
+            checkpointPosition = activeCheckpoint.transform.position;
+            isFlappyCheckpoint = activeCheckpoint.GetComponent<CheckpointSystem>().isFlappyCheckpoint;
+        }
+        else
+        {
+            checkpointPosition = startingPosition;
+            isFlappyCheckpoint = false;
+        }
+
+        // Reset position to active checkpoint
+        rb.transform.position = checkpointPosition;
+
+        PlayerMovement movement = GetComponent<PlayerMovement>();
+
+        // Set PlayerState according to type of checkpoint
+        if (isFlappyCheckpoint && movement.currentState is NormalState)
+        {
+            movement.SwitchState(PlayerState.FlappyBird);
+        }
+        else if (!isFlappyCheckpoint && movement.currentState is FlappyBirdState)
+        {
+            movement.SwitchState(PlayerState.Normal);
+        }
     }
 }
