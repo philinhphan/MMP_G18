@@ -190,7 +190,6 @@ public class CharacterController2D : MonoBehaviour
     {
         GameObject activeCheckpoint = CheckpointSystem.GetActiveCheckpoint();
         
-        bool isFlappyCheckpoint;
 
         // StartingPosition Case - No Checkpoints collected
         if (activeCheckpoint != null)

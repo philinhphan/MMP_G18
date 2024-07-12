@@ -58181,7 +58181,6 @@ GameObject:
   - component: {fileID: 897310446}
   - component: {fileID: 897310445}
   - component: {fileID: 897310449}
-  - component: {fileID: 897310450}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -58287,19 +58286,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pauseMenuUI: {fileID: 1724613564}
   characterController: {fileID: 1048255264}
---- !u!114 &897310450
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 897310444}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4071580905f4574ea538b2ebdd88068, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spikeSphere: {fileID: 0}
 --- !u!4 &903807127 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8859900147591011830, guid: b959a3ead329eb5448ea9394816d9c3e, type: 3}
