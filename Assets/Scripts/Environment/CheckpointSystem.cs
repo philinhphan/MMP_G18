@@ -6,11 +6,9 @@ using Unity.VisualScripting;
 using UnityEngine;
 
 public class CheckpointSystem : MonoBehaviour
-{   
+{
     public static List<GameObject> checkpointList;
 
-    [SerializeField]
-    /*Vector3 currentCheckpoint;*/
     public bool isFlappyCheckpoint;
     public bool isActive = false;
 
@@ -55,27 +53,4 @@ public class CheckpointSystem : MonoBehaviour
         }
         return activeCheckpoint;
     }
-
-
-    //Old CheckpointSystem
-    
-    // Start is called before the first frame update
-    /*void Start()
-    {
-        currentCheckpoint = startingPosition;
-    }
-
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        if(other.CompareTag("Checkpoint"))
-        {
-           currentCheckpoint = other.transform.position;
-           Debug.Log("Checkpoint hit, new position: " + currentCheckpoint);
-        }
-    }
-
-    public Vector3 getCurrentCheckpoint()
-    {
-        return currentCheckpoint;
-    }*/
 }
