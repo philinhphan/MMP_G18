@@ -117,6 +117,7 @@ GameObject:
   - component: {fileID: 8842678081086227538}
   - component: {fileID: 8993089938835733895}
   - component: {fileID: 5108034402879774425}
+  - component: {fileID: 2990911088129580549}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -161,7 +162,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -334,9 +335,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterController: {fileID: 5108034402879774425}
-  startingPosition: {x: -16, y: -7, z: 0}
-  animator: {fileID: 2047873156284160160}
   horizontalMove: 0
+  rb: {fileID: 0}
 --- !u!114 &5108034402879774425
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -353,9 +353,25 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   hasAirControl: 1
+  startingPosition: {x: -16, y: -7, z: 0}
   normalSpeed: 400
   flapForce: 12
   jumpForce: 10.1
+  rb: {fileID: 0}
+  animator: {fileID: 0}
+--- !u!114 &2990911088129580549
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3158421745816845338}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2657cdefd2b5f1f4aa67cf70b26090d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dissolveTime: 0.75
 --- !u!1 &8048481586155841352
 GameObject:
   m_ObjectHideFlags: 0
