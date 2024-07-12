@@ -197,6 +197,13 @@ public class CharacterController2D : MonoBehaviour
         {
             checkpointPosition = activeCheckpoint.transform.position;
             isFlappyCheckpoint = activeCheckpoint.GetComponent<CheckpointSystem>().isFlappyCheckpoint;
+
+            // check if the checkpoint has an upcoming Flap Circle to reset.
+            FlapCircleController flapCircleController = activeCheckpoint.GetComponent<CheckpointSystem>().flapCircleController;
+            if (flapCircleController != null)
+            {
+                flapCircleController.ResetFlapCircle();
+            }
         }
         else
         {

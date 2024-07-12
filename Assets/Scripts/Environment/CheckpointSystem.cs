@@ -11,6 +11,7 @@ public class CheckpointSystem : MonoBehaviour
 
     public bool isFlappyCheckpoint;
     public bool isActive = false;
+    public FlapCircleController flapCircleController;
 
     void Start()
     {
