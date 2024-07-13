@@ -22,7 +22,7 @@ public class CharacterController2D : MonoBehaviour
     private Dissolve dissolve;
 
     private bool isGrounded;
-    private bool hasTriggeredJump;
+    private bool hasTriggeredJump = false;
     private bool isFacingRight = true;
     private bool m_IsFlappyBirdMode = false;
 
@@ -77,10 +77,7 @@ public class CharacterController2D : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Obstacle"))
         {
-            rb.velocity = Vector3.zero;
-            rb.constraints = RigidbodyConstraints2D.FreezeAll;
-
-            isMovementLocked = true;
+            Freeze();
             if (!isDying)
             {
                 isDying = true;
@@ -114,48 +111,78 @@ public class CharacterController2D : MonoBehaviour
         }
     }
 
-    public void Move(float move, bool hasTriggeredJump, bool hasReleasedJump, bool isFlapping)
-    {
+    public void Move(float move, bool hasTriggeredJump, bool hasReleasedJump, bool hasTriggeredFlap)
+    {   
+        // Handle FlappyBirdRespawn with player lock
+        Vector2 checkpointPosV2 = checkpointPosition;
+        if (isMovementLocked && rb.position.Equals(checkpointPosV2))
+        {
+            if (move > 0 || move < 0 || hasTriggeredFlap) Unfreeze();
+        }
+
+        // All other cases
         if (!isMovementLocked)
         {
-            this.hasTriggeredJump = hasTriggeredJump;
-
-            // Player cannot be jumping and flapping at the same time
-            if (hasTriggeredJump && isFlapping)
+            if (checkValidInput(hasTriggeredJump, hasTriggeredFlap))
             {
-                Debug.LogError("jump and flap paramter are not allowed to be true simultanously");
-                return;
+                this.hasTriggeredJump = hasTriggeredJump;
+                MoveHorizontal(move);
+                Jump(hasReleasedJump);
+                Flap(hasTriggeredFlap);
             }
+        }
+    }
 
-            //Only control the player if grounded is true and/ or airControl is turned on
-            if (isGrounded || hasAirControl)
-            {
-                // Move the character by finding the target velocity
-                Vector3 targetVelocity = new Vector2(move * normalSpeed, rb.velocity.y);
-                rb.velocity = targetVelocity;
+    private bool checkValidInput(bool hasTriggeredJump, bool hasTriggeredFlap)
+    {
+        bool isValid = true;
 
-                if ((move > 0 && !isFacingRight) || (move < 0 && isFacingRight)) Flip();
-            }
+        // Player cannot be jumping and flapping at the same time
+        bool jumpFlapViolation = hasTriggeredJump && hasTriggeredFlap;
 
-            // Is on Ground and starts to jump
-            if (coyoteCounter > 0f && jumpBufferCounter > 0f)
-            {
-                rb.velocity = new Vector2(rb.velocity.x, jumpForce);
-                jumpBufferCounter = 0f;
-            }
+        if (jumpFlapViolation)
+        {
+            isValid = false;
+        }
 
-            // Is jumping and released the jump button
-            if (hasReleasedJump)
-            {
-                rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
-                coyoteCounter = 0f;
-            }
+        return isValid;
+    }
 
-            // Is flapping
-            if (isFlapping)
-            {
-                rb.velocity = new Vector2(rb.velocity.x, flapForce);
-            }
+    private void MoveHorizontal(float move)
+    {
+        //Only control the player if grounded is true and/ or airControl is turned on
+        if (isGrounded || hasAirControl)
+        {
+            // Move the character by finding the target velocity
+            Vector3 targetVelocity = new Vector2(move * normalSpeed, rb.velocity.y);
+            rb.velocity = targetVelocity;
+
+            if ((move > 0 && !isFacingRight) || (move < 0 && isFacingRight)) Flip();
+        }
+    }
+
+    private void Jump(bool hasReleasedJump)
+    {
+        // Is on Ground and starts to jump
+        if (coyoteCounter > 0f && jumpBufferCounter > 0f)
+        {
+            rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+            jumpBufferCounter = 0f;
+        }
+
+        // Is jumping and released the jump button
+        if (hasReleasedJump)
+        {
+            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
+            coyoteCounter = 0f;
+        }
+    }
+
+    private void Flap(bool hasTriggeredFlap)
+    {
+        if (hasTriggeredFlap)
+        {
+            rb.velocity = new Vector2(rb.velocity.x, flapForce);
         }
     }
 
@@ -181,17 +208,19 @@ public class CharacterController2D : MonoBehaviour
         yield return new WaitForSeconds(deathDelay);
         ResetPosition();
         StartCoroutine(dissolve.Appear(true));
-        isMovementLocked = false;
-        rb.constraints = RigidbodyConstraints2D.FreezeRotation;
         isDying = false;
+
+        if (!isFlappyCheckpoint)
+        {
+            Unfreeze();
+        }
+        
     }
 
     public void ResetPosition()
     {
         GameObject activeCheckpoint = CheckpointSystem.GetActiveCheckpoint();
         
-
-        // StartingPosition Case - No Checkpoints collected
         if (activeCheckpoint != null)
         {
             checkpointPosition = activeCheckpoint.transform.position;
@@ -204,6 +233,7 @@ public class CharacterController2D : MonoBehaviour
                 flapCircleController.ResetFlapCircle();
             }
         }
+        // StartingPosition Case - No Checkpoints collected
         else
         {
             checkpointPosition = startingPosition;
@@ -228,7 +258,23 @@ public class CharacterController2D : MonoBehaviour
         {
             movement.SwitchState(PlayerState.Normal);
         }
+
+        if (movement.currentState is FlappyBirdState)
+        {
+            Freeze();
+        }
     }
 
-    
+    private void Freeze()
+    {
+        isMovementLocked = true;
+        rb.constraints = RigidbodyConstraints2D.FreezeAll;
+        rb.velocity = Vector3.zero;
+    }
+
+    private void Unfreeze()
+    {
+        isMovementLocked = false;
+        rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+    }
 }
