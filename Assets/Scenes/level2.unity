@@ -56739,6 +56739,7 @@ GameObject:
   - component: {fileID: 703999077}
   - component: {fileID: 703999076}
   - component: {fileID: 703999075}
+  - component: {fileID: 703999078}
   m_Layer: 0
   m_Name: saw
   m_TagString: Obstacle
@@ -56826,6 +56827,41 @@ Transform:
   m_Children: []
   m_Father: {fileID: 643019602}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!58 &703999078
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 703999074}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 1.12
 --- !u!1 &716262933
 GameObject:
   m_ObjectHideFlags: 0
