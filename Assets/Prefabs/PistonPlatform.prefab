@@ -129,7 +129,7 @@ GameObject:
   - component: {fileID: 7329607408306444523}
   - component: {fileID: 3285721791783894413}
   - component: {fileID: 8943174113053604881}
-  - component: {fileID: 7579121101962350401}
+  - component: {fileID: 964015913213435461}
   m_Layer: 8
   m_Name: movingPlatform
   m_TagString: Ground
@@ -249,7 +249,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &7579121101962350401
+--- !u!114 &964015913213435461
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -258,7 +258,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6745657710854048248}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bf40ced56ffbedf47b33abb484bd4eb6, type: 3}
+  m_Script: {fileID: 11500000, guid: 1a31db4f7b2b40b4a94341952a1aaa54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   startPoint: {fileID: 3754651528788671081}
