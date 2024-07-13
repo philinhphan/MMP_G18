@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Rotate : MonoBehaviour
+public class FlapCircleController : MonoBehaviour
 {
     [SerializeField]
     private float rotationSpeed = 20;
@@ -11,6 +11,11 @@ public class Rotate : MonoBehaviour
     void Update()
     {
         transform.Rotate(rotationSpeed * Time.deltaTime * Vector3.back);
+    }
+
+    public void ResetFlapCircle()
+    {
+        transform.rotation = new Quaternion(0,0,-0.356330365f,0.934360087f);
     }
 
 }
