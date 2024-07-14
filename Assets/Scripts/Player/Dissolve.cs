@@ -33,6 +33,11 @@ public class Dissolve : MonoBehaviour
         {
             StartCoroutine(Appear(true));
         }
+
+        if (Input.GetKeyDown("n"))
+        {
+            StartCoroutine(DoFullEffect());
+        }
     }
 
     public IEnumerator Vanish(bool dissolve)
@@ -72,5 +77,11 @@ public class Dissolve : MonoBehaviour
 
             yield return null;
         }
+    }
+
+    public IEnumerator DoFullEffect()
+    {
+        yield return Vanish(true);
+        yield return Appear(true);
     }
 }

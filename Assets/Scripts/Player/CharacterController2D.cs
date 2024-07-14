@@ -24,7 +24,6 @@ public class CharacterController2D : MonoBehaviour
     private bool isGrounded;
     private bool hasTriggeredJump = false;
     private bool isFacingRight = true;
-    private bool m_IsFlappyBirdMode = false;
 
     private int collisionCounter = 0;
 
@@ -140,10 +139,7 @@ public class CharacterController2D : MonoBehaviour
         // Player cannot be jumping and flapping at the same time
         bool jumpFlapViolation = hasTriggeredJump && hasTriggeredFlap;
 
-        if (jumpFlapViolation)
-        {
-            isValid = false;
-        }
+        if (jumpFlapViolation) isValid = false;
 
         return isValid;
     }
@@ -197,24 +193,15 @@ public class CharacterController2D : MonoBehaviour
         transform.localScale = theScale;
     }
 
-    public void ToggleFlappyBirdMode(bool isFlappyBirdMode)
-    {
-        m_IsFlappyBirdMode = isFlappyBirdMode;
-    }
-
     public IEnumerator Die()
     {
-        StartCoroutine(dissolve.Vanish(true));
+        yield return dissolve.Vanish(true);
         yield return new WaitForSeconds(deathDelay);
         ResetPosition();
-        StartCoroutine(dissolve.Appear(true));
+        yield return dissolve.Appear(true);
         isDying = false;
 
-        if (!isFlappyCheckpoint)
-        {
-            Unfreeze();
-        }
-        
+        if (!isFlappyCheckpoint) Unfreeze();
     }
 
     public void ResetPosition()

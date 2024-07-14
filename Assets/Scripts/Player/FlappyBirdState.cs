@@ -9,6 +9,12 @@ public class FlappyBirdState : PlayerStateBase
     public FlappyBirdState(PlayerMovement playerMovement, CharacterController2D characterController) 
         : base(playerMovement, characterController) { }
 
+    void Start()
+    {
+        
+    }
+
+
     public override void Enter()
     {
         lastFlapTime = -flapCooldown;

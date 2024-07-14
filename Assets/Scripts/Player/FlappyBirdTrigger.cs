@@ -13,10 +13,13 @@ public class FlappyBirdTrigger : MonoBehaviour
 
     private bool isFlappyBirdModeActive = false;
 
+    private Dissolve dissolve;
+
     private void Start()
     {
         // Set initial color of the zone
         UpdateZoneVisual();
+        
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -37,6 +40,7 @@ public class FlappyBirdTrigger : MonoBehaviour
 
     private void ToggleFlappyBirdMode(GameObject player, bool activate)
     {
+        dissolve = player.GetComponent<Dissolve>();
         isFlappyBirdModeActive = activate;
 
         // Get the PlayerMovement component
@@ -48,11 +52,12 @@ public class FlappyBirdTrigger : MonoBehaviour
             playerMovement.SwitchState(newState);
 
             // Directly toggle FlappyBird mode on CharacterController2D
-            CharacterController2D characterController = player.GetComponent<CharacterController2D>();
+            /*CharacterController2D characterController = player.GetComponent<CharacterController2D>();
             if (characterController != null)
             {
                 characterController.ToggleFlappyBirdMode(activate);
-            }
+            }*/
+          
 
            // Debug.Log($"FlappyBird mode {(activate ? "activated" : "deactivated")}");
         }
