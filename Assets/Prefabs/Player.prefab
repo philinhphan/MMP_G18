@@ -161,7 +161,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 139e7dd1c7bae054587514a6e5e01dc3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -353,9 +353,9 @@ MonoBehaviour:
     m_Bits: 256
   hasAirControl: 1
   startingPosition: {x: -16, y: -7, z: 0}
-  normalSpeed: 400
-  flapForce: 12
-  jumpForce: 10.1
+  normalSpeed: 595
+  flapForce: 14
+  jumpForce: 19
   rb: {fileID: 0}
   animator: {fileID: 0}
 --- !u!114 &2990911088129580549
