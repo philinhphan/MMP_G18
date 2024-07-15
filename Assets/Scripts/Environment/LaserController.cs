@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 
 public class LaserController : MonoBehaviour
@@ -10,25 +11,22 @@ public class LaserController : MonoBehaviour
 
     [SerializeField]
     private bool startActive = true;
+
+    private float minSoundDistance = .1f;
+    private float maxSoundDistance = 30f;
+    private float soundVolume = .3f;
+    
     private bool isActive;
     private float timer;
     private Light2D l2d;
     private BoxCollider2D c2d;
-
-    //private AudioManager audioManager;
+    private GameObject activeLaserSoundClip;
 
     void Start()
     {
-        //isActive = startActive;
+        isActive = startActive;
         l2d = GetComponent<Light2D>();
         c2d = GetComponent<BoxCollider2D>();
-
-        // Initialize AudioManager reference
-        /*audioManager = AudioManager.Instance;
-        if (audioManager == null)
-        {
-            Debug.LogError("AudioManager not found in the scene!");
-        }*/
     }
 
     // Update is called once per frame
@@ -37,16 +35,24 @@ public class LaserController : MonoBehaviour
         timer += Time.deltaTime;
         if (timer >= interval)
         {
-            bool previousState = isActive;
             c2d.enabled = isActive;
             l2d.enabled = isActive;
-            isActive = !isActive;
 
-            if (isActive != previousState && isActive) // TODO: adapt
+            //play sound (at laser position) or destroy it, depending on laser state
+            if (isActive)
             {
-                //SoundManager.instance.PlayClip(SoundManager.instance.LaserSound);
+               activeLaserSoundClip = SoundManager.instance.PlayLocalClip(SoundManager.instance.LaserSound, transform.position, minSoundDistance, maxSoundDistance, soundVolume);
             }
-            
+            else
+            {
+                if (activeLaserSoundClip != null)
+                {
+                    Destroy(activeLaserSoundClip);
+                }
+            }
+
+
+            isActive = !isActive;
             timer = 0;
         }
     }

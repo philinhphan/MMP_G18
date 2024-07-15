@@ -144,6 +144,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interval: 1
   startActive: 1
+  maxSoundDistance: 0.15
 --- !u!1 &6747289582723149747
 GameObject:
   m_ObjectHideFlags: 0

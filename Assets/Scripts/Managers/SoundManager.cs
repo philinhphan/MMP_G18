@@ -12,6 +12,9 @@ public class SoundManager : MonoBehaviour
     public AudioClip FlapSound;
     public AudioClip DieSound;
     public AudioClip LaserSound;
+
+    public Transform playerTransform;
+    
     
 
     private void Awake()
@@ -36,11 +39,37 @@ public class SoundManager : MonoBehaviour
 
     public GameObject PlayInterruptableClip(AudioClip audioClip)
     {
-        AudioSource audioSource = Instantiate(soundObject, transform.position, Quaternion.identity);
+        return PlayInterruptableClip(audioClip, transform.position);
+    }
 
+
+    public GameObject PlayInterruptableClip(AudioClip audioClip, Vector3 position)
+    {
+        return PlayInterruptableClip(audioClip, position, 1);
+    }
+    
+    public GameObject PlayInterruptableClip(AudioClip audioClip, Vector3 position, float volume)
+    {
+        AudioSource audioSource = Instantiate(soundObject, position, Quaternion.identity);
         audioSource.clip = audioClip;
+        audioSource.volume = volume;
         audioSource.Play();
 
         return audioSource.gameObject;
+    }
+
+    // adapted from PlayClipAtPoint()
+    public GameObject PlayLocalClip(AudioClip audioClip, Vector3 position, float minDistance, float maxDistance, float clipVolume)
+    {
+            AudioSource audioSource = Instantiate(soundObject, position, Quaternion.identity);
+            audioSource.clip = audioClip;
+            audioSource.spatialBlend = 1f; // Make the sound fully 3D
+            audioSource.minDistance = minDistance;
+            audioSource.maxDistance = maxDistance;
+            audioSource.rolloffMode = AudioRolloffMode.Linear;
+            audioSource.volume = clipVolume;
+            audioSource.Play();
+
+            return audioSource.gameObject;
     }
 }
