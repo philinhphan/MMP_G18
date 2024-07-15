@@ -10,12 +10,12 @@ public class SawTriggerController : MonoBehaviour
     void OnTriggerEnter2D(Collider2D col)
     {
         if (saw != null)
-            saw.SetActive(true);
+            saw.GetComponent<AudioSource>().enabled = true;
     }
 
     void OnTriggerExit2D(Collider2D col)
     {
         if (saw != null)
-            saw.SetActive(false);
+            saw.GetComponent<AudioSource>().enabled = false;
     }
 }
