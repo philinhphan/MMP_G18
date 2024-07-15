@@ -42,6 +42,8 @@ public class CharacterController2D : MonoBehaviour
 
     private bool isMovementLocked = false;
 
+    private AudioManager audioManager;
+
     public bool GetIsGrounded()
     {
         return isGrounded;
@@ -52,6 +54,13 @@ public class CharacterController2D : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         dissolve = GetComponent<Dissolve>();
+
+        // Initialize AudioManager reference
+        audioManager = AudioManager.Instance;
+        if (audioManager == null)
+        {
+            Debug.LogError("AudioManager not found in the scene!");
+        }
     }
     private void Update()
     {
@@ -150,6 +159,11 @@ public class CharacterController2D : MonoBehaviour
 
     private void MoveHorizontal(float move)
     {
+        if (move != 0 && isGrounded)
+        {
+            audioManager.PlayWalkSound();
+        }
+
         //Only control the player if grounded is true and/ or airControl is turned on
         if (isGrounded || hasAirControl)
         {
@@ -168,6 +182,7 @@ public class CharacterController2D : MonoBehaviour
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
             jumpBufferCounter = 0f;
+            audioManager.PlayJumpSound();
         }
 
         // Is jumping and released the jump button
@@ -182,6 +197,7 @@ public class CharacterController2D : MonoBehaviour
     {
         if (hasTriggeredFlap)
         {
+            audioManager.PlayFlapSound();
             rb.velocity = new Vector2(rb.velocity.x, flapForce);
         }
     }
@@ -204,6 +220,7 @@ public class CharacterController2D : MonoBehaviour
 
     public IEnumerator Die()
     {
+        audioManager.PlayDeathSound();
         StartCoroutine(dissolve.Vanish(true));
         yield return new WaitForSeconds(deathDelay);
         ResetPosition();
