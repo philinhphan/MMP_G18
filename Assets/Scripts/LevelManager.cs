@@ -2,12 +2,12 @@ using UnityEngine;
 
 public class LevelManager : MonoBehaviour
 {
-    private AudioManager audioManager;
+    //private AudioManager audioManager;
     [SerializeField] private AudioClip backgroundMusic;
 
     void Start()
     {
-        audioManager = AudioManager.Instance;
+        /*audioManager = AudioManager.Instance;
         if (audioManager == null)
         {
             Debug.LogError("AudioManager not found in the scene!");
@@ -15,6 +15,6 @@ public class LevelManager : MonoBehaviour
         else
         {
             audioManager.PlayBackgroundMusic(backgroundMusic, true, 3f);
-        }
+        }*/
     }
 }

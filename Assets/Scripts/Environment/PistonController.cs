@@ -20,7 +20,7 @@ public class PistonController : MonoBehaviour {
 
     public bool isReversed = false;
 
-    private AudioManager audioManager;
+    //private AudioManager audioManager;
 
 
     // Start is called before the first frame update
@@ -48,11 +48,11 @@ public class PistonController : MonoBehaviour {
         }
 
         // Initialize AudioManager reference
-        audioManager = AudioManager.Instance;
+        /*audioManager = AudioManager.Instance;
         if (audioManager == null)
         {
             Debug.LogError("AudioManager not found in the scene!");
-        }
+        }*/
     }
 
     // Update is called once per frame
@@ -63,19 +63,19 @@ public class PistonController : MonoBehaviour {
         if (transform.position == endPosition)
         {
             nextPosition = startPosition;
-            audioManager.PlayPistonSound();
+            //audioManager.PlayPistonSound();
         }
         else if (transform.position == startPosition)
         {
             nextPosition = endPosition;
-            audioManager.PlayPistonSound();
+            //audioManager.PlayPistonSound();
         }
 
         transform.position = Vector3.MoveTowards(transform.position, nextPosition, speed * Time.deltaTime);
 
         if (transform.position != previousPosition)
         {
-            audioManager.PlayPistonSound();
+            //audioManager.PlayPistonSound();
         }
     }
 }

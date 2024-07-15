@@ -11,7 +11,7 @@ public class TrapdoorLockout : MonoBehaviour
     [SerializeField]
     private JointLimitState2D InitialLimitState = JointLimitState2D.UpperLimit;
     
-    private AudioManager audioManager;
+    //private AudioManager audioManager;
 
 
     void Start()
@@ -23,16 +23,16 @@ public class TrapdoorLockout : MonoBehaviour
         r2d.constraints = RigidbodyConstraints2D.FreezeAll;
 
         // Initialize AudioManager reference
-        audioManager = AudioManager.Instance;
+        /*audioManager = AudioManager.Instance;
         if (audioManager == null)
         {
             Debug.LogError("AudioManager not found in the scene!");
-        }
+        }*/
     }
 
     void OnTriggerEnter2D(Collider2D collider)
     {
-        audioManager.PlayTrapdoorSound();
+        //audioManager.PlayTrapdoorSound();
         r2d.constraints = RigidbodyConstraints2D.None;
     }
 

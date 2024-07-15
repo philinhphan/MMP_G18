@@ -13,16 +13,16 @@ public class SawController : MonoBehaviour
 
     public bool moveVertical = true;
 
-    private AudioManager audioManager;
+    //private AudioManager audioManager;
 
     void Start()
     {
         // Initialize AudioManager reference
-        audioManager = AudioManager.Instance;
+        /*audioManager = AudioManager.Instance;
         if (audioManager == null)
         {
             Debug.LogError("AudioManager not found in the scene!");
-        }
+        }*/
     }
 
     // Update is called once per frame
@@ -46,10 +46,10 @@ public class SawController : MonoBehaviour
 
         if (newPosition != currentPosition)
         {
-            if (audioManager != null)
+            /*if (audioManager != null)
             {
                 audioManager.PlaySawSound(transform.position, player);
-            }
+            }*/
         }
 
         transform.position = newPosition;

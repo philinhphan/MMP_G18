@@ -15,20 +15,20 @@ public class LaserController : MonoBehaviour
     private Light2D l2d;
     private BoxCollider2D c2d;
 
-    private AudioManager audioManager;
+    //private AudioManager audioManager;
 
     void Start()
     {
-        isActive = startActive;
+        //isActive = startActive;
         l2d = GetComponent<Light2D>();
         c2d = GetComponent<BoxCollider2D>();
 
         // Initialize AudioManager reference
-        audioManager = AudioManager.Instance;
+        /*audioManager = AudioManager.Instance;
         if (audioManager == null)
         {
             Debug.LogError("AudioManager not found in the scene!");
-        }
+        }*/
     }
 
     // Update is called once per frame
@@ -44,7 +44,7 @@ public class LaserController : MonoBehaviour
 
             if (isActive != previousState && isActive) // TODO: adapt
             {
-                audioManager.PlayLaserSound();
+                //audioManager.PlayLaserSound();
             }
             
             timer = 0;
