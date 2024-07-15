@@ -41,6 +41,7 @@ public class CharacterController2D : MonoBehaviour
     private bool isDying;
 
     private bool isMovementLocked = false;
+    private GameObject activeFlapSoundSource;
 
     public bool GetIsGrounded()
     {
@@ -201,7 +202,14 @@ public class CharacterController2D : MonoBehaviour
         {
             //audioManager.PlayFlapSound();
             rb.velocity = new Vector2(rb.velocity.x, flapForce);
-            SoundManager.instance.PlayClip(SoundManager.instance.FlapSound);
+
+            // interrupt currently playing sound before playing and saving the next
+            if (activeFlapSoundSource != null)
+            {
+                Destroy(activeFlapSoundSource);
+            }
+
+            activeFlapSoundSource = SoundManager.instance.PlayInterruptableClip(SoundManager.instance.FlapSound);
         }
     }
 

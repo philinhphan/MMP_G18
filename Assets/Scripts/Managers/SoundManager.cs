@@ -33,4 +33,14 @@ public class SoundManager : MonoBehaviour
 
         Destroy(audioSource.gameObject, length);
     }
+
+    public GameObject PlayInterruptableClip(AudioClip audioClip)
+    {
+        AudioSource audioSource = Instantiate(soundObject, transform.position, Quaternion.identity);
+
+        audioSource.clip = audioClip;
+        audioSource.Play();
+
+        return audioSource.gameObject;
+    }
 }
