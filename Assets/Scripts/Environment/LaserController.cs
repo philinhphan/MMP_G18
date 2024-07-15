@@ -44,7 +44,7 @@ public class LaserController : MonoBehaviour
 
             if (isActive != previousState && isActive) // TODO: adapt
             {
-                //audioManager.PlayLaserSound();
+                //SoundManager.instance.PlayClip(SoundManager.instance.LaserSound);
             }
             
             timer = 0;

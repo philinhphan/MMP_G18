@@ -234,7 +234,6 @@ public class CharacterController2D : MonoBehaviour
         {
             Unfreeze();
         }
-        
     }
 
     public void ResetPosition()

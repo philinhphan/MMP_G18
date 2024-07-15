@@ -11,6 +11,7 @@ public class SoundManager : MonoBehaviour
     public AudioClip jumpClip;
     public AudioClip FlapSound;
     public AudioClip DieSound;
+    public AudioClip LaserSound;
     
 
     private void Awake()
