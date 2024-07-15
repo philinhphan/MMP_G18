@@ -37395,6 +37395,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4557973950534288045, guid: 526fb7a60de8a43478b0bf4978160d6b, type: 3}
+      propertyPath: m_Volume
+      value: 0.612
+      objectReference: {fileID: 0}
+    - target: {fileID: 4557973950534288045, guid: 526fb7a60de8a43478b0bf4978160d6b, type: 3}
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
@@ -38261,6 +38265,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: FlameLightSet 5
       objectReference: {fileID: 0}
+    - target: {fileID: 2336884293769801411, guid: f2174e34d0cb52144b66c100d82d0ba2, type: 3}
+      propertyPath: m_Volume
+      value: 0.808
+      objectReference: {fileID: 0}
+    - target: {fileID: 2336884293769801411, guid: f2174e34d0cb52144b66c100d82d0ba2, type: 3}
+      propertyPath: MaxDistance
+      value: 8.97261
+      objectReference: {fileID: 0}
+    - target: {fileID: 2336884293769801411, guid: f2174e34d0cb52144b66c100d82d0ba2, type: 3}
+      propertyPath: MinDistance
+      value: 3.3170242
+      objectReference: {fileID: 0}
     - target: {fileID: 3482946818470955764, guid: f2174e34d0cb52144b66c100d82d0ba2, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.09322099
@@ -38305,6 +38321,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7639587426693326869, guid: f2174e34d0cb52144b66c100d82d0ba2, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.06
+      objectReference: {fileID: 0}
     - target: {fileID: 8608337040474237412, guid: f2174e34d0cb52144b66c100d82d0ba2, type: 3}
       propertyPath: m_FalloffIntensity
       value: 0.894
@@ -38325,6 +38345,14 @@ PrefabInstance:
     - target: {fileID: 1262797115060457987, guid: f2174e34d0cb52144b66c100d82d0ba2, type: 3}
       propertyPath: m_Name
       value: FlameLightSet 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2336884293769801411, guid: f2174e34d0cb52144b66c100d82d0ba2, type: 3}
+      propertyPath: MaxDistance
+      value: 27.093834
+      objectReference: {fileID: 0}
+    - target: {fileID: 2336884293769801411, guid: f2174e34d0cb52144b66c100d82d0ba2, type: 3}
+      propertyPath: MinDistance
+      value: 4.2796783
       objectReference: {fileID: 0}
     - target: {fileID: 3482946818470955764, guid: f2174e34d0cb52144b66c100d82d0ba2, type: 3}
       propertyPath: m_LocalScale.x
@@ -38369,6 +38397,10 @@ PrefabInstance:
     - target: {fileID: 3482946818470955764, guid: f2174e34d0cb52144b66c100d82d0ba2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7639587426693326869, guid: f2174e34d0cb52144b66c100d82d0ba2, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 4.4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -73050,6 +73082,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: FlameLightSet 3
       objectReference: {fileID: 0}
+    - target: {fileID: 2336884293769801411, guid: f2174e34d0cb52144b66c100d82d0ba2, type: 3}
+      propertyPath: m_Volume
+      value: 0.779
+      objectReference: {fileID: 0}
+    - target: {fileID: 2336884293769801411, guid: f2174e34d0cb52144b66c100d82d0ba2, type: 3}
+      propertyPath: MaxDistance
+      value: 23.358559
+      objectReference: {fileID: 0}
+    - target: {fileID: 2336884293769801411, guid: f2174e34d0cb52144b66c100d82d0ba2, type: 3}
+      propertyPath: MinDistance
+      value: 7.186287
+      objectReference: {fileID: 0}
     - target: {fileID: 3482946818470955764, guid: f2174e34d0cb52144b66c100d82d0ba2, type: 3}
       propertyPath: m_LocalScale.x
       value: 2.3186407
@@ -73093,6 +73137,14 @@ PrefabInstance:
     - target: {fileID: 3482946818470955764, guid: f2174e34d0cb52144b66c100d82d0ba2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7639587426693326869, guid: f2174e34d0cb52144b66c100d82d0ba2, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7639587426693326869, guid: f2174e34d0cb52144b66c100d82d0ba2, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 8.14
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -75056,8 +75108,24 @@ PrefabInstance:
       value: FlameLightSet 2
       objectReference: {fileID: 0}
     - target: {fileID: 2336884293769801411, guid: f2174e34d0cb52144b66c100d82d0ba2, type: 3}
+      propertyPath: m_Volume
+      value: 0.749
+      objectReference: {fileID: 0}
+    - target: {fileID: 2336884293769801411, guid: f2174e34d0cb52144b66c100d82d0ba2, type: 3}
       propertyPath: MaxDistance
-      value: 32.861732
+      value: 22.23558
+      objectReference: {fileID: 0}
+    - target: {fileID: 2336884293769801411, guid: f2174e34d0cb52144b66c100d82d0ba2, type: 3}
+      propertyPath: MinDistance
+      value: 10.179215
+      objectReference: {fileID: 0}
+    - target: {fileID: 2336884293769801411, guid: f2174e34d0cb52144b66c100d82d0ba2, type: 3}
+      propertyPath: rolloffCustomCurve.m_Curve.Array.data[1].time
+      value: 0.36798114
+      objectReference: {fileID: 0}
+    - target: {fileID: 2336884293769801411, guid: f2174e34d0cb52144b66c100d82d0ba2, type: 3}
+      propertyPath: rolloffCustomCurve.m_Curve.Array.data[1].value
+      value: 0.42908078
       objectReference: {fileID: 0}
     - target: {fileID: 2369478380169770122, guid: f2174e34d0cb52144b66c100d82d0ba2, type: 3}
       propertyPath: m_LocalScale.x
@@ -77168,11 +77236,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 210714187637176886, guid: 214a1115335ade14aac9416f1cb6ff4b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.66
+      value: 135.8
       objectReference: {fileID: 0}
     - target: {fileID: 210714187637176886, guid: 214a1115335ade14aac9416f1cb6ff4b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.89
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 210714187637176886, guid: 214a1115335ade14aac9416f1cb6ff4b, type: 3}
       propertyPath: m_LocalPosition.z
