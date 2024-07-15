@@ -68549,7 +68549,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4321271621011485395, guid: 9f813e679042c624ba02b1d0a4a1d84b, type: 3}
       propertyPath: m_ConnectedAnchor.x
-      value: 128.41006
+      value: 128.44519
       objectReference: {fileID: 0}
     - target: {fileID: 4321271621011485395, guid: 9f813e679042c624ba02b1d0a4a1d84b, type: 3}
       propertyPath: m_ConnectedAnchor.y
@@ -77236,11 +77236,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 210714187637176886, guid: 214a1115335ade14aac9416f1cb6ff4b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 135.8
+      value: 54.36
       objectReference: {fileID: 0}
     - target: {fileID: 210714187637176886, guid: 214a1115335ade14aac9416f1cb6ff4b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 15
+      value: 0.88
       objectReference: {fileID: 0}
     - target: {fileID: 210714187637176886, guid: 214a1115335ade14aac9416f1cb6ff4b, type: 3}
       propertyPath: m_LocalPosition.z
@@ -77324,7 +77324,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: cc82a6d66b9f7304e996a468416cf82d, type: 2}
     - target: {fileID: 8699694915651175648, guid: 214a1115335ade14aac9416f1cb6ff4b, type: 3}
       propertyPath: m_Constraints
-      value: 6
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8699694915651175648, guid: 214a1115335ade14aac9416f1cb6ff4b, type: 3}
       propertyPath: m_GravityScale
