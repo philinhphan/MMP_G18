@@ -247,6 +247,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3823868207754758309, guid: 8e1d211c3ce1bc843a44205e2d77ae3b, type: 3}
   m_PrefabInstance: {fileID: 19026434}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &37218719 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7235437624371898197, guid: 526fb7a60de8a43478b0bf4978160d6b, type: 3}
+  m_PrefabInstance: {fileID: 349500967}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &58538076
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -36430,6 +36435,102 @@ MonoBehaviour:
   - {x: 0.95830536, y: -0.77282715, z: 0.00000047683716}
   - {x: -0.16475868, y: -0.65303373, z: 0.00000047683716}
   - {x: -1.1702709, y: -0.66145325, z: 0}
+--- !u!1 &130012337
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 130012338}
+  - component: {fileID: 130012340}
+  - component: {fileID: 130012339}
+  m_Layer: 0
+  m_Name: SawTrigger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &130012338
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 130012337}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 24.14, y: 23.99, z: -1.0067234}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 531683922}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!60 &130012339
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 130012337}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 37.79265, y: 33.65085}
+      - {x: -72.83908, y: 32.32001}
+      - {x: -72.54865, y: -14.605434}
+      - {x: 17.852053, y: -14.34454}
+      - {x: 37.793777, y: 10.81311}
+  m_UseDelaunayMesh: 0
+--- !u!114 &130012340
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 130012337}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d64299235202444ebbd0dc9a1c595b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  saw: {fileID: 37218719}
 --- !u!4 &140763247 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3845973141601804401, guid: 6eaf7c591c36f034cb77b494c697ac0f, type: 3}
@@ -37514,6 +37615,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SawWrapper 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7235437624371898197, guid: 526fb7a60de8a43478b0bf4978160d6b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7528785400168981454, guid: 526fb7a60de8a43478b0bf4978160d6b, type: 3}
       propertyPath: player
       value: 
@@ -38371,6 +38476,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1423909818}
+  - {fileID: 130012338}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &551504864 stripped
@@ -77977,11 +78083,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 210714187637176886, guid: 214a1115335ade14aac9416f1cb6ff4b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 248.4
+      value: 244.4
       objectReference: {fileID: 0}
     - target: {fileID: 210714187637176886, guid: 214a1115335ade14aac9416f1cb6ff4b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 54.3
+      value: 57
       objectReference: {fileID: 0}
     - target: {fileID: 210714187637176886, guid: 214a1115335ade14aac9416f1cb6ff4b, type: 3}
       propertyPath: m_LocalPosition.z
