@@ -46,7 +46,10 @@ public class SawController : MonoBehaviour
 
         if (newPosition != currentPosition)
         {
-            audioManager.PlaySawSound();
+            if (audioManager != null)
+            {
+                audioManager.PlaySawSound(transform.position, player);
+            }
         }
 
         transform.position = newPosition;

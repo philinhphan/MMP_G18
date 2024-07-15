@@ -18,9 +18,24 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioClip flapCircleSound;
     [SerializeField] private AudioClip ambienceSound;
 
+    [SerializeField] [Range(0f, 1f)] private float walkVolume = 1f;
+    [SerializeField] [Range(0f, 1f)] private float jumpVolume = 1f;
+    [SerializeField] [Range(0f, 1f)] private float flapVolume = 1f;
+    [SerializeField] [Range(0f, 1f)] private float deathVolume = 1f;
+    [SerializeField] [Range(0f, 1f)] private float trapdoorVolume = 1f;
+    [SerializeField] [Range(0f, 1f)] private float fireVolume = 1f;
+    [SerializeField] [Range(0f, 1f)] private float laserVolume = 1f;
+    [SerializeField] [Range(0f, 1f)] private float sawVolume = 0.3f; // Set this lower for the saw
+    [SerializeField] [Range(0f, 1f)] private float pistonVolume = 1f;
+    [SerializeField] [Range(0f, 1f)] private float flapCircleVolume = 1f;
+
+    [SerializeField] private float sawDistance = 10f;
+
     [SerializeField] private AudioSource fxSource;
 
     [SerializeField] private AudioSource musicSource;
+
+
 
     public float Volume
     {
@@ -71,11 +86,34 @@ public class AudioManager : MonoBehaviour
         
     }
 
-    public void PlayClip(AudioClip clip)
+    public void PlayClip(AudioClip clip, float volumeMultiplier = 1f)
     {
         if (clip != null && fxSource != null)
         {
-            fxSource.PlayOneShot(clip);
+            fxSource.PlayOneShot(clip, fxSource.volume * volumeMultiplier);
+        }
+        else
+        {
+            Debug.LogWarning("AudioClip or AudioSource is null");
+        }
+    }
+
+    // For distance-based volume
+    public void PlayClipAtPoint(AudioClip clip, Vector3 position, float maxDistance, float volumeMultiplier = 1f)
+    {
+        if (clip != null && fxSource != null)
+        {
+            GameObject audioSource = new GameObject("One shot audio");
+            audioSource.transform.position = position;
+            AudioSource source = audioSource.AddComponent<AudioSource>();
+            source.clip = clip;
+            source.spatialBlend = 1f; // Make the sound fully 3D
+            source.maxDistance = maxDistance;
+            source.rolloffMode = AudioRolloffMode.Linear;
+            source.Play();
+            float duration = clip.length;
+            source.volume = fxSource.volume * volumeMultiplier;
+            Destroy(audioSource, duration);
         }
         else
         {
@@ -84,72 +122,128 @@ public class AudioManager : MonoBehaviour
     }
 
     public void PlayWalkSound()
-{
-    PlayClip(walkSound);
-}
-
-public void PlayJumpSound()
-{
-    PlayClip(jumpSound);
-}
-
-public void PlayFlapSound()
-{
-    PlayClip(flapSound);
-}
-
-public void PlayDeathSound()
-{
-    PlayClip(deathSound);
-}
-
-public void PlayTrapdoorSound()
-{
-    PlayClip(trapdoorSound);
-}
-
-public void PlayFireSound()
-{
-    PlayClip(fireSound);
-}
-
-public void PlayLaserSound()
-{
-    PlayClip(laserSound);
-}
-
-public void PlaySawSound()
-{
-    PlayClip(sawSound);
-}
-
-public void PlayPistonSound()
-{
-    PlayClip(pistonSound);
-}
-
-public void PlayFlapCircleSound()
-{
-    PlayClip(flapCircleSound);
-}
-
-public void PlayAmbienceSound()
-{
-    PlayClip(ambienceSound);
-}
-
-public void PlayBackgroundMusic(AudioClip musicClip)
-{
-    if (musicClip != null && musicSource != null)
     {
-        musicSource.clip = musicClip;
+        PlayClip(walkSound, walkVolume);
+    }
+
+    public void PlayJumpSound()
+    {
+        PlayClip(jumpSound, jumpVolume);
+    }
+
+    public void PlayFlapSound()
+    {
+        PlayClip(flapSound, flapVolume);
+    }
+
+    public void PlayDeathSound()
+    {
+        PlayClip(deathSound, deathVolume);
+    }
+
+    public void PlayTrapdoorSound()
+    {
+        PlayClip(trapdoorSound, trapdoorVolume);
+    }
+
+    public void PlayFireSound()
+    {
+        PlayClip(fireSound, fireVolume);
+    }
+
+    public void PlayLaserSound()
+    {
+        PlayClip(laserSound, laserVolume);
+    }
+
+    public void PlaySawSound(Vector3 position, Transform playerTransform)
+    {
+        if (sawSound != null && fxSource != null)
+        {
+            float distance = Vector3.Distance(position, playerTransform.position);
+            float maxDistance = sawDistance; 
+            float volume = Mathf.Clamp01(1 - (distance / maxDistance)) * sawVolume;
+            
+            AudioSource.PlayClipAtPoint(sawSound, position, fxSource.volume * volume);
+        }
+        else
+        {
+            Debug.LogWarning("Saw sound or AudioSource is null");
+        }
+    }
+
+    public void PlayPistonSound()
+    {
+        PlayClip(pistonSound, pistonVolume);
+    }
+
+    public void PlayFlapCircleSound()
+    {
+        PlayClip(flapCircleSound, flapCircleVolume);
+    }
+
+    public void PlayAmbienceSound()
+    {
+        PlayClip(ambienceSound);
+    }
+
+    public void PlayBackgroundMusic(AudioClip musicClip, bool fadeIn = true, float fadeDuration = 2f)
+    {
+        if (musicClip != null && musicSource != null)
+        {
+            musicSource.clip = musicClip;
+            if (fadeIn)
+            {
+                FadeInMusic(fadeDuration);
+            }
+            else
+            {
+                musicSource.Play();
+            }
+        }
+        else
+        {
+            Debug.LogWarning("Music clip or AudioSource is null");
+        }
+    }
+
+    public void SetEffectsVolume(float volume)
+    {
+        fxSource.volume = Mathf.Clamp01(volume);
+    }
+
+    public void SetMusicVolume(float volume)
+    {
+        musicSource.volume = Mathf.Clamp01(volume);
+    }
+
+    public float GetEffectsVolume()
+    {
+        return fxSource.volume;
+    }
+
+    public float GetMusicVolume()
+    {
+        return musicSource.volume;
+    }
+
+    public void FadeInMusic(float duration)
+    {
+        StartCoroutine(FadeInMusicCoroutine(duration));
+    }
+
+    private IEnumerator FadeInMusicCoroutine(float duration)
+    {
+        float startVolume = 0f;
+        musicSource.volume = startVolume;
         musicSource.Play();
-    }
-    else
-    {
-        Debug.LogWarning("Music clip or AudioSource is null");
-    }
-}
 
-    
+        while (musicSource.volume < 1f)
+        {
+            musicSource.volume += Time.deltaTime / duration;
+            yield return null;
+        }
+
+        musicSource.volume = 1f;
+    }
 }

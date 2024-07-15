@@ -14,7 +14,7 @@ public class LevelManager : MonoBehaviour
         }
         else
         {
-            audioManager.PlayBackgroundMusic(backgroundMusic);
+            audioManager.PlayBackgroundMusic(backgroundMusic, true, 3f);
         }
     }
 }

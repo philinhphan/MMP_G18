@@ -17,7 +17,7 @@ public class FireController : MonoBehaviour
     void Update()
     {
         // This is a placeholder condition. Replace it with actual fire activation logic.
-        bool shouldPlayFire = /* Fire activation condition */;
+        bool shouldPlayFire = true; /* Fire activation condition */
 
         if (shouldPlayFire && !isPlaying)
         {
@@ -26,6 +26,7 @@ public class FireController : MonoBehaviour
         }
         else if (!shouldPlayFire && isPlaying)
         {
+            // If you have a method to stop the fire sound, call it here
             // audioManager.StopFireSound();
             isPlaying = false;
         }
