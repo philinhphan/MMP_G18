@@ -27,9 +27,14 @@ public class SoundManager : MonoBehaviour
 
     public void PlayClip(AudioClip audioClip)
     {
+        PlayClip(audioClip, 1);
+    }
+    public void PlayClip(AudioClip audioClip, float volume)
+    {
         AudioSource audioSource = Instantiate(soundObject, transform.position, Quaternion.identity);
 
         audioSource.clip = audioClip;
+        audioSource.volume = volume;
         audioSource.Play();
 
         float length = audioSource.clip.length;
@@ -37,9 +42,16 @@ public class SoundManager : MonoBehaviour
         Destroy(audioSource.gameObject, length);
     }
 
+    
+
     public GameObject PlayInterruptableClip(AudioClip audioClip)
     {
         return PlayInterruptableClip(audioClip, transform.position);
+    }
+
+    public GameObject PlayInterruptableClip(AudioClip audioClip, float volume)
+    {
+        return PlayInterruptableClip(audioClip, transform.position, volume);
     }
 
 

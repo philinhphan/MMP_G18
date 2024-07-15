@@ -338,9 +338,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   soundObject: {fileID: 2609926702048222834, guid: 86534d20ad3e07740b53bc6989978b2e, type: 3}
-  jumpClip: {fileID: 8300000, guid: 6fa7aa5801d2640ae9b2ee62310405fb, type: 3}
-  FlapSound: {fileID: 8300000, guid: 227472d409b3149d6befda0e43513c27, type: 3}
-  DieSound: {fileID: 8300000, guid: 04488bb64ae074454a9ab7154ca1a03a, type: 3}
+  jumpClip: {fileID: 8300000, guid: b7e37279990d3408a8feeaf9ec834d28, type: 3}
+  FlapSound: {fileID: 8300000, guid: e320ba162415e3e4d9c3409ce354afcb, type: 3}
+  DieSound: {fileID: 8300000, guid: c3c0aa985832c4d4f801e997eacb92b9, type: 3}
   LaserSound: {fileID: 8300000, guid: 011a1c10af0544ae9a8deea1ea08a06e, type: 3}
   playerTransform: {fileID: 1048255263}
 --- !u!4 &75862290
@@ -77236,11 +77236,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 210714187637176886, guid: 214a1115335ade14aac9416f1cb6ff4b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 54.36
+      value: 119.12
       objectReference: {fileID: 0}
     - target: {fileID: 210714187637176886, guid: 214a1115335ade14aac9416f1cb6ff4b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.88
+      value: 14.99
       objectReference: {fileID: 0}
     - target: {fileID: 210714187637176886, guid: 214a1115335ade14aac9416f1cb6ff4b, type: 3}
       propertyPath: m_LocalPosition.z

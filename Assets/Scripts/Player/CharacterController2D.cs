@@ -183,7 +183,7 @@ public class CharacterController2D : MonoBehaviour
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
             jumpBufferCounter = 0f;
             //audioManager.PlayJumpSound();
-            SoundManager.instance.PlayClip(SoundManager.instance.jumpClip);
+            SoundManager.instance.PlayClip(SoundManager.instance.jumpClip, .3f);
         }
 
         // Is jumping and released the jump button
@@ -209,7 +209,7 @@ public class CharacterController2D : MonoBehaviour
                 Destroy(activeFlapSoundSource);
             }
 
-            activeFlapSoundSource = SoundManager.instance.PlayInterruptableClip(SoundManager.instance.FlapSound);
+            activeFlapSoundSource = SoundManager.instance.PlayInterruptableClip(SoundManager.instance.FlapSound, .2f);
         }
     }
 
@@ -231,7 +231,7 @@ public class CharacterController2D : MonoBehaviour
 
     public IEnumerator Die()
     {
-        SoundManager.instance.PlayClip(SoundManager.instance.DieSound);
+        SoundManager.instance.PlayClip(SoundManager.instance.DieSound, .3f);
         StartCoroutine(dissolve.Vanish(true));
         yield return new WaitForSeconds(deathDelay);
         ResetPosition();
