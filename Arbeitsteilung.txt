@@ -1,0 +1,15 @@
+Adrian Moritz: 
+Leveldesign, Gegner, Sägen, "FlapCircle" (drehender Kreis mit Aussparung), "Höhle" (mit David), Start- und EndScreen (mit David), viel Feedback und Beratung/Pair Programming
+
+Rasmus Valeth: 
+Sprites erstellt, Designkonzepte, Animationssystem (mit Manu), Shader für Death Animation, Feedback und Beratung/Pair Programming, Timer
+
+David Besteck: 
+Projektkoordinierung, Leveldesign, Feuer/Laser/Licht, Falltüren (mit Manuel), "Höhle" (mit Adrian), Feintuning und Balancing, SoundSystem (v1 von Phi, v2 zusammen mit Manuel), Sounddesign, Checkpoints (mit Manuel),
+Start- und EndScreen (mit Adrian), Recherche
+
+Phi Linh Phan: 
+Movement (v1, v2 überarbeitet von Manuel), Sound System (v1, v2 überarbeitet von Manuel u. David), Soundrecherche (Flap u. Walk Sound)
+
+Manuel Schneider: 
+Tilemaps u. Palette, erste Levelumsetzung in Unity, Movement (v1 Phi, v2 Manuel), bewegliche Plattformen, SoundSystem (v1 Phi, v2 zusammen mit David), Animation (mit Rasmus), Checkpoints (mit David), sehr viel Recherche, PauseScreen
