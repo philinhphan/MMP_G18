@@ -19,7 +19,6 @@ public class HideSystem : MonoBehaviour
     }
 
     private void OnTriggerEnter2D(Collider2D other ) {
-        Debug.Log("Hide System Triggered");
 
         if(other.CompareTag("Player"))
         {

@@ -9,6 +9,7 @@ TagManager:
   - Checkpoint
   - EnemyBound
   - Timer
+  - AudioManager
   layers:
   - Default
   - TransparentFX

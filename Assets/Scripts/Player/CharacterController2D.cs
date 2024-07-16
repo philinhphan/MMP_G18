@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -39,8 +40,10 @@ public class CharacterController2D : MonoBehaviour
     private bool isFlappyCheckpoint;
 
     private bool isDying;
+    private bool isWalkSoundPlaying = false;
 
     private bool isMovementLocked = false;
+    private GameObject activeFlapSoundSource;
 
     public bool GetIsGrounded()
     {
@@ -52,6 +55,13 @@ public class CharacterController2D : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         dissolve = GetComponent<Dissolve>();
+
+        // Initialize AudioManager reference
+        /*audioManager = AudioManager.Instance;
+        if (audioManager == null)
+        {
+            Debug.LogError("AudioManager not found in the scene!");
+        }*/
     }
     private void Update()
     {
@@ -82,6 +92,7 @@ public class CharacterController2D : MonoBehaviour
             {
                 isDying = true;
                 StartCoroutine(Die());
+              
             }
             
         }
@@ -150,6 +161,12 @@ public class CharacterController2D : MonoBehaviour
 
     private void MoveHorizontal(float move)
     {
+        if (move != 0 && isGrounded && !isWalkSoundPlaying)
+        {   
+            isWalkSoundPlaying = true;
+            StartCoroutine(PlayWalkSound());
+        }
+
         //Only control the player if grounded is true and/ or airControl is turned on
         if (isGrounded || hasAirControl)
         {
@@ -161,6 +178,13 @@ public class CharacterController2D : MonoBehaviour
         }
     }
 
+    IEnumerator PlayWalkSound()
+    {
+        SoundManager.instance.PlayClip(SoundManager.instance.walkSound, .4f);
+        yield return new WaitForSeconds(UnityEngine.Random.Range(.7f, 1.5f));
+        isWalkSoundPlaying = false;
+    }
+
     private void Jump(bool hasReleasedJump)
     {
         // Is on Ground and starts to jump
@@ -168,6 +192,8 @@ public class CharacterController2D : MonoBehaviour
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
             jumpBufferCounter = 0f;
+            //audioManager.PlayJumpSound();
+            SoundManager.instance.PlayClip(SoundManager.instance.jumpClip, .3f);
         }
 
         // Is jumping and released the jump button
@@ -176,13 +202,24 @@ public class CharacterController2D : MonoBehaviour
             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
             coyoteCounter = 0f;
         }
+
+        
     }
 
     private void Flap(bool hasTriggeredFlap)
     {
         if (hasTriggeredFlap)
         {
+            //audioManager.PlayFlapSound();
             rb.velocity = new Vector2(rb.velocity.x, flapForce);
+
+            // interrupt currently playing sound before playing and saving the next
+            if (activeFlapSoundSource != null)
+            {
+                Destroy(activeFlapSoundSource);
+            }
+
+            activeFlapSoundSource = SoundManager.instance.PlayInterruptableClip(SoundManager.instance.FlapSound, .2f);
         }
     }
 
@@ -204,6 +241,7 @@ public class CharacterController2D : MonoBehaviour
 
     public IEnumerator Die()
     {
+        SoundManager.instance.PlayClip(SoundManager.instance.DieSound, .3f);
         StartCoroutine(dissolve.Vanish(true));
         yield return new WaitForSeconds(deathDelay);
         ResetPosition();
@@ -214,7 +252,6 @@ public class CharacterController2D : MonoBehaviour
         {
             Unfreeze();
         }
-        
     }
 
     public void ResetPosition()

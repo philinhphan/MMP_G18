@@ -8,10 +8,16 @@ public class PauseMenu : MonoBehaviour
     // Start is called before the first frame update
 
     [SerializeField] private GameObject pauseMenuUI;
-    [SerializeField] private CharacterController2D characterController;
+    
+    private CharacterController2D characterController;
 
     public static bool isPaused = false;
     private string mainMenuSceneName = "StartScreen";
+
+    private void Start()
+    {
+        characterController = GameObject.FindGameObjectWithTag("Player").GetComponent<CharacterController2D>();
+    }
 
 
     // Update is called once per frame
