@@ -9,7 +9,7 @@ Projektkoordinierung, Leveldesign, Feuer/Laser/Licht, Falltüren (mit Manuel), "
 Start- und EndScreen (mit Adrian), Recherche
 
 Phi Linh Phan: 
-Movement (v1, v2 überarbeitet von Manuel), Sound System (v1, v2 überarbeitet von Manuel u. David), Soundrecherche (Flap u. Walk Sound)
+Movement (v1, v2 überarbeitet von Manuel) insbesondere PlayerState und Flap-System, Sound System (v1, v2 überarbeitet von Manuel u. David), Sound-Recherche (Flap u. Walk Sound), Movement-Recherche
 
 Manuel Schneider: 
 Tilemaps u. Palette, erste Levelumsetzung in Unity, Movement (v1 Phi, v2 Manuel), bewegliche Plattformen, SoundSystem (v1 Phi, v2 zusammen mit David), Animation (mit Rasmus), Checkpoints (mit David), sehr viel Recherche, PauseScreen
