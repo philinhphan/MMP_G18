@@ -14,8 +14,6 @@ public class SoundManager : MonoBehaviour
     public AudioClip LaserSound;
     public  AudioClip walkSound;
 
-    public Transform playerTransform;
-
     private void Awake()
     {
         if (instance == null)
