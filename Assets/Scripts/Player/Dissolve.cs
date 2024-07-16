@@ -22,19 +22,6 @@ public class Dissolve : MonoBehaviour
         for (int i = 0; i < _spriteRenderers.Length; i++) _materials [i] = _spriteRenderers[i].material;
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown("v"))
-        {
-            StartCoroutine(Vanish(true));
-        }
-
-        if (Input.GetKeyDown("b"))
-        {
-            StartCoroutine(Appear(true));
-        }
-    }
-
     public IEnumerator Vanish(bool dissolve)
     {
         float elapsedTime = 0;
