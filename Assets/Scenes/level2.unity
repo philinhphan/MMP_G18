@@ -342,6 +342,7 @@ MonoBehaviour:
   FlapSound: {fileID: 8300000, guid: e320ba162415e3e4d9c3409ce354afcb, type: 3}
   DieSound: {fileID: 8300000, guid: c3c0aa985832c4d4f801e997eacb92b9, type: 3}
   LaserSound: {fileID: 8300000, guid: 011a1c10af0544ae9a8deea1ea08a06e, type: 3}
+  walkSound: {fileID: 8300000, guid: 9ae0cca44a51a6146bb1f9587d901acc, type: 3}
   playerTransform: {fileID: 1048255263}
 --- !u!4 &75862290
 Transform:
@@ -77236,11 +77237,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 210714187637176886, guid: 214a1115335ade14aac9416f1cb6ff4b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 119.12
+      value: 107.83
       objectReference: {fileID: 0}
     - target: {fileID: 210714187637176886, guid: 214a1115335ade14aac9416f1cb6ff4b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 14.99
+      value: 49.05
       objectReference: {fileID: 0}
     - target: {fileID: 210714187637176886, guid: 214a1115335ade14aac9416f1cb6ff4b, type: 3}
       propertyPath: m_LocalPosition.z

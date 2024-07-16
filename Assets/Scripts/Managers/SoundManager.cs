@@ -12,10 +12,9 @@ public class SoundManager : MonoBehaviour
     public AudioClip FlapSound;
     public AudioClip DieSound;
     public AudioClip LaserSound;
+    public  AudioClip walkSound;
 
     public Transform playerTransform;
-    
-    
 
     private void Awake()
     {

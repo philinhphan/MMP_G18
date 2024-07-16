@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -39,6 +40,7 @@ public class CharacterController2D : MonoBehaviour
     private bool isFlappyCheckpoint;
 
     private bool isDying;
+    private bool isWalkSoundPlaying = false;
 
     private bool isMovementLocked = false;
     private GameObject activeFlapSoundSource;
@@ -159,9 +161,10 @@ public class CharacterController2D : MonoBehaviour
 
     private void MoveHorizontal(float move)
     {
-        if (move != 0 && isGrounded)
-        {
-            //audioManager.PlayWalkSound();
+        if (move != 0 && isGrounded && !isWalkSoundPlaying)
+        {   
+            isWalkSoundPlaying = true;
+            StartCoroutine(PlayWalkSound());
         }
 
         //Only control the player if grounded is true and/ or airControl is turned on
@@ -173,6 +176,13 @@ public class CharacterController2D : MonoBehaviour
 
             if ((move > 0 && !isFacingRight) || (move < 0 && isFacingRight)) Flip();
         }
+    }
+
+    IEnumerator PlayWalkSound()
+    {
+        SoundManager.instance.PlayClip(SoundManager.instance.walkSound, .4f);
+        yield return new WaitForSeconds(UnityEngine.Random.Range(.7f, 1.5f));
+        isWalkSoundPlaying = false;
     }
 
     private void Jump(bool hasReleasedJump)
